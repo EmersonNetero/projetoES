@@ -1,4 +1,4 @@
-from conda.base import context
+#from conda.base import context
 from django.shortcuts import render
 from .models import AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm
