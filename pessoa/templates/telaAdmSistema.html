@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content%}
+<div class="content">
+    <h1 id="Titulo">CENTRO MÉDICO UFS 
+      </h1>
+      <div id="Menu">
+          <button onclick="logOut()"> sair </button>
+        </div>
+        <nav> Tela Inicial <hr> </nav>
+        <div id="Option">
+         <h3>Principais serviços</h3>
+         <hr>
+         <br>
+          <button id="Consulta">Agendar Consulta</button>
+          <button id="Exame">Agendar Exame</button>
+          <button id="Cirurgia">Agendar Cirurgia</button>
+          <button id = "Agendamento">Consultar Agendamento</button>
+          <button id= "cronograma">Exibir Cronograma</button>
+          <button id="Relatorios">Gerar Relatorios</button>
+          <button id="Prontuario">Visualizar Prontuario</button>
+          <a href="telaCadastroUsuario.html"><button id="Cadastro">Cadastrar Usuario</button> </a>
+        </div>
+    </div>
+{% endblock%}

@@ -1,4 +1,4 @@
-from conda.base import context
+#from conda.base import context
 from django.shortcuts import render
 from .models import AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm
@@ -11,13 +11,17 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-	return render(request, "index.html")
+	return render(request, "home.html")
 
 ###
 def login(request):
     data = {}
     data['form'] = LoginForm()
     return render(request, 'login.html', data)
+
+# telas do cargos 
+def adm(request):
+    return render(request, "telaAdmSistema.html")
 
 ###
 def cadastrarPessoa(request):
