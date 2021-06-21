@@ -66,7 +66,8 @@ class AdministradorSistema(Pessoa):
     pk_adm_sistema = models.AutoField(primary_key=True, verbose_name = "pk_adm_sistema")
     fk_dados_profissional = models.ForeignKey('DadosProfissional', db_column='pk_dados_profissional',
                                               verbose_name="fkDadosProfissional", on_delete=models.PROTECT)
-
+    fk_dados_profissional = models.ForeignKey('DadosProfissional', db_column='pk_dados_profissional',
+                                              verbose_name="fkDadosProfissional", on_delete=models.PROTECT)
     class Meta:
         verbose_name = 'AdministradorSistema'
         verbose_name_plural = 'AdministradorSistemas'
@@ -76,10 +77,57 @@ class AdministradorSistema(Pessoa):
         return  self.pk_adm_sistema
 
 ###
+class AgenteSaude(Pessoa):
+    pk_agente_saude = models.AutoField(primary_key=True, verbose_name = "pkAgenteSaude")
+    tipo_agente_saude = models.CharField(max_length=100, null=False, blank=False)
+    conselho_classe = models.CharField(max_length=100, null=False, blank=False)
+    especialidade = models.CharField(max_length=100, null=True, blank=True)
+    fk_dados_profissional = models.ForeignKey('DadosProfissional', db_column='pk_dados_profissional',
+                                              verbose_name="fkDadosProfissional", on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = 'AgenteSaude'
+        verbose_name_plural = 'Agentes  Saude'
+        db_table = 'agente_saude'
+
+    def __int__(self):
+        return self.pk_agente_saude
+
+
+###
+class AdministradorInstituicao(AdministradorSistema):
+    pk_adm_instituicao = models.AutoField(primary_key=True, verbose_name = "pkAdmInstituicao")
+
+    class Meta:
+        verbose_name = 'AdministradorInstituicao'
+        verbose_name_plural = 'AdministradoresInstituicao'
+        db_table = 'administrador_instituicao'
+
+    def __int__(self):
+        return self.pk_adm_instituicao
+
+
+###
+class Paciente(Pessoa):
+    pk_paciente = models.AutoField(primary_key=True, verbose_name="pkPaciente")
+    sangue_tipo = models.CharField(max_length=12, null=True, blank=True)
+    peso = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    altura = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Paciente'
+        verbose_name_plural = 'Pacientes'
+        db_table = 'paciente'
+
+    def __int__(self):
+        return self.pk_paciente
+
+
+###
 class Cargo(models.Model):
     pk_cargo = models.AutoField(primary_key=True, verbose_name = "pkCargo")
     nome = models.CharField(max_length=200, null=False, blank=False, unique=True)
-    salario = models.FloatField(blank=False, null=False)
+    salario = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False)
 
     class Meta:
         verbose_name = 'Cargo'
