@@ -8,8 +8,8 @@ from pessoa.views import home, login, adm,cadastrarPessoa, cadastrarEndereco, ca
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login) ,
-    path('', home),
+    path('', login) ,
+    # path('', home),
     path('admsistema/', adm),
     path('cadastroPeople', cadastrarPessoa)
 ]
