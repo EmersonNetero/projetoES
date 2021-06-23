@@ -11,7 +11,7 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-	return render(request, "home.html")
+	return render(request, "index.html")
 
 ###
 def login(request):
@@ -20,8 +20,8 @@ def login(request):
     return render(request, 'login.html', data)
 
 # telas do cargos 
-def adm(request):
-    return render(request, "telaAdmSistema.html")
+def admSistema(request):
+    return render(request, "menuAdmSistema.html")
 
 ###
 def cadastrarPessoa(request):
