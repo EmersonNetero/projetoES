@@ -80,8 +80,8 @@ WSGI_APPLICATION = 'clinica.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
+        'NAME': 'dbCentroMedico',
+        'USER': 'adriano',
         'PASSWORD': 'adriano10',
         'HOST': 'localhost',
         'PORT': '5432',

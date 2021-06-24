@@ -19,7 +19,7 @@
         <ul class="sidebar-nav">
 
             {% block foto %}
-            <img class="foto" src="{% static 'foto.png' %}" alt="" width="150" height="75"
+            <img class="foto" src="{% static '/fotos/foto.png' %}" alt="" width="150" height="75"
                        class="d-inline-block align-text-top" align="center">
            {% endblock %}
             {% block usuario %}
@@ -51,13 +51,14 @@
       <div class="col-sm-10 ">
           <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
               <a class="navbar-brand">
-                  <img class="logo" src="{% static 'logo_CM_UFS.png' %}" alt="" width="50" height="50"
+                  <img class="logo" src="{% static '/images/logo_CM_UFS.png' %}" alt="" width="50" height="50"
                        class="d-inline-block align-text-top">
                   CENTRO MÉDICO UFS
               </a>
           </nav>
       <div class="content">
-          {% block content %}{% endblock %}
+          {% block content %}
+          {% endblock %}
       </div>
 
       </div>

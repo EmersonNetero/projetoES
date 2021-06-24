@@ -2,22 +2,121 @@
 
 {% block content%}
 
-      <div id="Menu">
+<table class="table table-hover">
+   <tr>
+    <th>Pessoas</th>
+    <th>Agendamentos</th>
+    <th>Diversos</th>
+  </tr>
+  <tr>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR ADMINISTRADOR</h5>
+    <p class="card-text">Cadastar Administrador do Sistema</p>
+    <a href="/cadastroAdministrador" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">AGENDAR CONSULTAS</h5>
+    <p class="card-text">Agendamento de consulta em diversas especialidades</p>
+    <a href="/agendamentoTeste" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR CARGOS</h5>
+    <p class="card-text">Cadastar cargos no disponíveis no Centro Médico</p>
+    <a href="/cadastroCargo" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+  </tr>
+  <tr>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR AGENTE DE SAÚDE</h5>
+    <p class="card-text">Cadastar Agentes de Saúde</p>
+    <a href="#" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">AGENDAR EXAMES</h5>
+    <p class="card-text">Agendamento de exames</p>
+    <a href="/agendamentoTeste" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR TIPOS DE PROCEDIMENTO</h5>
+    <p class="card-text">Serviços oferecidos entre exames, consultas e cirurgias</p>
+    <a href="/cadastroTProced" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+  </tr>
+  <tr>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR AGENTE SECRETARIA</h5>
+    <p class="card-text">Cadastar Agentes de Secretaria</p>
+    <a href="#" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+  <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">AGENDAR CIRURGIA</h5>
+    <p class="card-text">Agendamento de cirurgias</p>
+    <a href="/agendamentoTeste" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">EXIBIR CRONOGRAMA</h5>
+    <p class="card-text">Exibe cronograma de serviços</p>
+    <a href="" class="btn btn-primary">Exibir</a>
+  </div>
+</div></td>
+    <tr>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR PACIENTE</h5>
+    <p class="card-text">Cadastar Pacientes</p>
+    <a href="" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">EFETUAR PAGAMENTO</h5>
+    <p class="card-text">FUNÇÃO DE AGENTE DE SERCRETARIA - TESTE</p>
+    <a href="/pagamentoTeste" class="btn btn-primary">Pagar</a>
+  </div>
+</div></td>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CONSULTAR PROTUARIO</h5>
+    <p class="card-text">Exibe informações sobre o prontuário do paciente</p>
+    <a href="#" class="btn btn-primary">Consultar</a>
+  </div>
+</div></td>
+  </tr>
+  <tr>
+    <td><div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" style="color: blue">CADASTRAR ENDEREÇO</h5>
+    <p class="card-text">Cadastar endereço antes dos dados pessoais</p>
+    <a href="/cadastroEndereco" class="btn btn-primary">Iniciar Cadastro</a>
+  </div>
+</div></td>
+    <td>Espaço2</td>
+    <td>Espaço3</td>
+  </tr>
 
-        </div>
-        <nav> Administrador do Sistema <Sistema></Sistema> <hr> </nav>
-        <div id="Option">
-         <h3>Principais serviços</h3>
-         <hr>
-         <br>
-          <button id="Consulta">Agendar Consulta</button>
-          <button id="Exame">Agendar Exame</button>
-          <button id="Cirurgia">Agendar Cirurgia</button>
-          <button id = "Agendamento">Consultar Agendamento</button>
-          <button id= "cronograma">Exibir Cronograma</button>
-          <button id="Relatorios">Gerar Relatorios</button>
-          <button id="Prontuario">Visualizar Prontuario</button>
-          <a href="/cadastroPeople"><button id="Cadastro">Cadastrar Usuario</button> </a>
-        </div>
-    </div>
-{% endblock%}
+</table>
+
+
+
+
+
+
+
+  {% endblock%}

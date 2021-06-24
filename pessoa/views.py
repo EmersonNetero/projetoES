@@ -3,13 +3,12 @@ from django.shortcuts import render
 from .models import AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm
 
-from .forms import PessoaCadastroForm, EnderecoCadastroForm, AgenteSecretariaform, AdministradorSistemaForm, \
-    CargoCadastroForm, DadosProfissionalCadastroForm
+from .forms import ProfissaoCadastroForm, EnderecoCadastroForm, AgenteSecretariaform, AdministradorSistemaForm, CargoCadastroForm, \
+    TipoProcedimentoCadForm, AgendamentoForm, PagamentoForm
 
 from django.contrib import messages
 
 # Create your views here.
-
 def home(request):
 	return render(request, "index.html")
 
@@ -24,76 +23,21 @@ def admSistema(request):
     return render(request, "menuAdmSistema.html")
 
 ###
-def cadastrarPessoa(request):
-    template = ""
-    context = {}
-    form = PessoaCadastroForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    context['form'] = form
-    return render(request, "cadastroPeople.html", context)
-
-###
-def cadastrarAgenteSecretaria(request):
-    template = ""
-    context = {}
-    f = AgenteSecretariaform()
-    if request.method == "POST":
-        form = AgenteSecretariaform(request.POST or None)
-        if form.is_valid():
-            form.save()
-            context['form'] = f
-            messages.info(request, "Agente de Secretaria Cadastrado com Sucesso!")
-            return render(request, "cadastroSecretary.html", context)
-    else:
-        form = AgenteSecretariaform()
-    context['form'] = form
-    return render(request, "cadastroSecretary.html", context)
-
-
-def listaAgenteSecretaria(request):
-    template = ""
-    context = {}
-    context["lista"] = AgenteSecretaria.objects.all()
-    return render(request, "listaSecretaria.html", context)
-
-
-def detalheAgenteSecretaria(request, id):
-    template = ""
-    context = {}
-    context['lista'] = AgenteSecretaria.objects.get(pk_agente_secretaria = id)
-    return render(request, "listaSecretariaID.html", context)
-
-###
 def cadastrarAdministradorSistema(request):
     template = ""
     context = {}
     f = AdministradorSistemaForm()
     if request.method == "POST":
-        form = AdministradorSistemaForm(request.POST or None)
-        if form.is_valid():
-            form.save()
+        formAdm = AdministradorSistemaForm(request.POST or None)
+        if formAdm.is_valid():
+            formAdm.save()
             context['form'] = f
             messages.info(request, "Administrador de Sistema Cadastrado com Sucesso!")
-        return render(request, "cadastroSecretary.html", context)
+        return render(request, "cadastroPessoa.html", context)
     else:
-        form = AdministradorSistemaForm()
-    context['form'] = form
-    return render(request, "cadastroSecretary.html", context)
-
-
-def listaAdministradorSistema(request):
-    template = ""
-    context = {}
-    context["lista"] = AdministradorSistema.objects.all()
-    return render(request, "listaSecretaria.html", context)
-
-
-def detalheAdministradorSistema(request, id):
-    template = ""
-    context = {}
-    context['lista'] = AdministradorSistema.objects.get(pk_adm_sistema = id)
-    return render(request, "listaSecretariaID.html", context)
+        formAdm = AdministradorSistemaForm()
+    context['form'] = formAdm
+    return render(request, "cadastroPessoa.html", context)
 
 ###
 def cadastrarEndereco(request):
@@ -101,16 +45,17 @@ def cadastrarEndereco(request):
     context = {}
     f = EnderecoCadastroForm()
     if request.method == "POST":
-        form = EnderecoCadastroForm(request.POST)
+        formEndereco = EnderecoCadastroForm(request.POST)
         if form.is_valid():
-            form.save()
+            formEndereco.save()
             context['form'] = f
             messages.info(request, "Endereço Cadastrado com Sucesso!")
-            return render(request, "cadastroAddress.html", context)
+            return render(request, "cadastroPessoa.html", context)
     else:
-        form = EnderecoCadastroForm()
-    context['form'] = form
-    return render(request, "cadastroAddress.html", context)
+        formEndereco = EnderecoCadastroForm(prefix='adr')
+    context['form'] = formEndereco
+
+    return render(request, "cadastroPessoa.html", context)
 
 ###
 def cadastrarCargo(request):
@@ -118,30 +63,52 @@ def cadastrarCargo(request):
     context = {}
     f = CargoCadastroForm()
     if request.method == "POST":
-        form = CargoCadastroForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formCargo = CargoCadastroForm(request.POST)
+        if formCargo.is_valid():
+            formCargo.save()
             context['form'] = f
             messages.info(request, "Cargo Cadastrado com Sucesso!")
-            return render(request, "cadastroAddress.html", context)
+            return render(request, "cadDiverso.html", context)
     else:
-        form = CargoCadastroForm()
-    context['form'] = form
-    return render(request, "cadastroAddress.html", context)
+        formCargo = CargoCadastroForm()
+    context['form'] = formCargo
+    return render(request, "cadDiverso.html", context)
 
 ###
-def cadastrarDadosProfissional(request):
+
+def cadastrarTipoProcedimento(request):
     template = ""
     context = {}
-    f = DadosProfissionalCadastroForm()
+    f = TipoProcedimentoCadForm
     if request.method == "POST":
-        form = DadosProfissionalCadastroForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formTipProcedimento = TipoProcedimentoCadForm(request.POST)
+        if formTipProcedimento.is_valid():
+            formTipProcedimento.save()
             context['form'] = f
-            messages.info(request, "Dados Profissionais Cadastrado com Sucesso!")
-            return render(request, "cadastroAddress.html", context)
+            messages.info(request, "Tipo de Procediemnto Cadastrado com Sucesso!")
+            return render(request, "cadDiverso.html", context)
     else:
-        form = DadosProfissionalCadastroForm()
-    context['form'] = form
-    return render(request, "cadastroAddress.html", context)
+        formTipProcedimento = TipoProcedimentoCadForm()
+    context['form'] = formTipProcedimento
+    return render(request, "cadDiverso.html", context)
+
+
+###
+def cadastrarAgendmentoTeste(request):
+    template = ""
+    context = {}
+    formAgenda = AgendamentoForm(request.POST)
+    if formAgenda.is_valid():
+        formAgenda.save()
+    context['form'] = formAgenda
+    return render(request, "agendamento.html", context)
+
+###
+def cadastrarPagamentoTeste(request):
+    template = ""
+    context = {}
+    formPag = PagamentoForm(request.POST)
+    if formPag.is_valid():
+        formPag.save()
+    context['form'] = formPag
+    return render(request, "agendamento.html", context)
