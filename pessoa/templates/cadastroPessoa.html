@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content%}
-
+<h1>Cadastrar Usuário</h1>
 <form method="POST" enctype="multipart/form-data">
 <table id="formcadastro">
     <tr><td>Dados</td><td>Endereço</td></tr>
@@ -9,7 +9,8 @@
     <tr><td>{{form.as_p}}</td><td>{{formAdm.as_p}}</td> <td>{{formEndereco.as_p}}</td></tr>
 </table>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Cadastrar" class="btn btn-primary">
+    <a href="/admsistema" class="btn btn-primary">Voltar</a> 
 </form>
 
 {% if messages %}

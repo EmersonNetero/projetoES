@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
 {% block content%}
+<h2>Agendar Consulta</h2>
 
 <form method="POST" enctype="multipart/form-data">
 
-
+    <table id="Agendamento">
     {% csrf_token %}
+    <tr></tr>
+    <tr><th>{{form.as_p}}</th><th>{{formAgenda.as_p}}</th><th>{{formPag.as_p}}</th></tr>
+    
+    
+    
+    </table>    
 
-    {{form.as_p}}
-
-    {{formAgenda.as_p}}
-    {{formPag.as_p}}
-
-
-    <input type="submit" value="Submit">
+    <input type="submit" value="Cadastrar" class="btn btn-primary">
+    <a href="/admsistema" class="btn btn-primary">Voltar</a> 
+    <a href="/agendamentoTeste" class="btn btn-primary">Reiniciar</a> <br><br>
 </form>
 
 {% if messages %}
@@ -26,7 +29,7 @@
 {% endif %}
 
 
-    <a href="/admsistema" class="btn btn-primary">Voltar</a>
+   
 
 
 {% endblock %}
