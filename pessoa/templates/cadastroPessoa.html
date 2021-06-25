@@ -3,17 +3,11 @@
 {% block content%}
 
 <form method="POST" enctype="multipart/form-data">
-
-
+<table id="formcadastro">
+    <tr><td>Dados</td><td>Endereço</td></tr>
     {% csrf_token %}
-
-    {{form.as_p}}
-
-    {{formAdm.as_p}}
-
-    {{formEndereco.as_p}}
-
-
+    <tr><td>{{form.as_p}}</td><td>{{formAdm.as_p}}</td> <td>{{formEndereco.as_p}}</td></tr>
+</table>
 
     <input type="submit" value="Submit">
 </form>

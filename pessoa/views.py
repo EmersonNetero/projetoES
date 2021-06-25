@@ -46,7 +46,7 @@ def cadastrarEndereco(request):
     f = EnderecoCadastroForm()
     if request.method == "POST":
         formEndereco = EnderecoCadastroForm(request.POST)
-        if form.is_valid():
+        if formEndereco.is_valid():
             formEndereco.save()
             context['form'] = f
             messages.info(request, "Endereço Cadastrado com Sucesso!")
