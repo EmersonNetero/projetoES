@@ -45,7 +45,7 @@ class Profissao(models.Model):
     pk_profissao = models.AutoField(primary_key=True, verbose_name = "pkProfissao")
     nome = models.CharField(max_length=200, null=False)
     cpf = models.CharField(max_length=11, null=False, unique = True)
-    data_nascimento = models.DateField(null=False, blank = False, verbose_name = "dataNascimento")
+    data_nascimento = models.DateField(null=False, blank = False, verbose_name = "data Nascimento")
     telefone = models.CharField(max_length=14, null=False, blank=False)
     rg = models.CharField(max_length=50, null=True, blank=True)
     fotoPerfil = models.CharField(max_length=60, null=True, blank=True)
@@ -115,9 +115,9 @@ class AgenteSaude(Profissao):
 
 class Paciente(models.Model):
     pk_paciente = models.AutoField(primary_key=True, verbose_name="pkPaciente")
-    nome = models.CharField(max_length=200, null=False)
+    nome = models.CharField(max_length=200, null=False, blank = False)
     cpf = models.CharField(max_length=11, null=False, unique=True)
-    data_nascimento = models.DateField(null=False, blank=False, verbose_name="dataNascimento")
+    data_nascimento = models.DateField(null=False, blank=False, verbose_name="data Nascimento")
     telefone = models.CharField(max_length=14, null=False, blank=False)
     rg = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(max_length=60, null=True, blank=True, unique=True)
@@ -160,7 +160,8 @@ class Agendamento(models.Model):
     pk_agendamento = models.AutoField(primary_key=True, verbose_name = "pkAgendamento")
     tipo_agendamento = models.IntegerField(choices=TIPOAGENDAMENTO_CHOICE)
     data_agendamento = models.DateField(auto_now_add = True, null=False, blank=False, verbose_name="dataAgendamento")
-    realizado = models.BooleanField(null = True)
+    pago = models.BooleanField(null = True)
+    observacao = models.TextField(max_length=300, null=True, blank=True, unique=False)
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente',
                                              verbose_name="fkPaciente",
                                              on_delete=models.PROTECT)
@@ -209,6 +210,8 @@ class Procedimento(models.Model):
     comorbidade = models.CharField(max_length=100, null=True, blank=True, unique=False)
     gravidade = models.CharField(max_length=100, null=True, blank=True, unique=False)
     descricao = models.TextField(max_length=300, null=True, blank=True, unique=False)
+    observacao = models.TextField(max_length=300, null=True, blank=True, unique=False)
+    reaçizado = models.BooleanField(null=True)
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente',
                                              verbose_name="fkPaciente",
                                              on_delete=models.PROTECT)

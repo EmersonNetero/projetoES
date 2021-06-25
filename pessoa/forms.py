@@ -11,36 +11,36 @@ class LoginForm(ModelForm):
             'senha': forms.PasswordInput(),}
         fields = ['email', 'senha']
 
-class ProfissaoCadastroForm(ModelForm):
+class ProfissaoForm(ModelForm):
     class Meta:
         model = Profissao
         fields = '__all__'
 
 
-class AgenteSecretariaform(ProfissaoCadastroForm):
+class AgenteSecretariaform(ProfissaoForm):
     class Meta:
         model = AgenteSecretaria
         fields = '__all__'
 
 
-class AdministradorSistemaForm(ProfissaoCadastroForm):
+class AdministradorSistemaForm(ProfissaoForm):
     class Meta:
         model = AdministradorSistema
         fields = '__all__'
 
 
-class EnderecoCadastroForm(ModelForm):
+class EnderecoForm(ModelForm):
     class Meta:
         model = Endereco
         fields = '__all__'
 
 
-class CargoCadastroForm(ModelForm):
+class CargoForm(ModelForm):
     class Meta:
         model = Cargo
         fields = '__all__'
 
-class TipoProcedimentoCadForm(ModelForm):
+class TipoProcedimentoForm(ModelForm):
     class Meta:
         model = TipoProcedimento
         fields = '__all__'
@@ -56,3 +56,7 @@ class PagamentoForm(ModelForm):
         model = Pagamento
         fields = '__all__'
 
+class PacienteForm(ModelForm):
+    class Meta:
+        model = Paciente
+        exclude = ('fk_endereco',)
