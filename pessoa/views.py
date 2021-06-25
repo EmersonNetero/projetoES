@@ -1,17 +1,14 @@
 #from conda.base import context
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .models import AgenteSecretaria, AdministradorSistema
-from .forms import LoginForm
-
-from .forms import PessoaCadastroForm, EnderecoCadastroForm, AgenteSecretariaform, AdministradorSistemaForm, \
-    CargoCadastroForm, DadosProfissionalCadastroForm
-
+from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaform, AdministradorSistemaForm, CargoForm, \
+    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm
 from django.contrib import messages
 
 # Create your views here.
-
 def home(request):
-	return render(request, "home.html")
+	return render(request, "index.html")
 
 ###
 def login(request):
@@ -20,128 +17,58 @@ def login(request):
     return render(request, 'login.html', data)
 
 # telas do cargos 
-def adm(request):
-    return render(request, "telaAdmSistema.html")
-
-###
-def cadastrarPessoa(request):
-    template = ""
-    context = {}
-    form = PessoaCadastroForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    context['form'] = form
-    return render(request, "cadastroPeople.html", context)
-
-###
-def cadastrarAgenteSecretaria(request):
-    template = ""
-    context = {}
-    f = AgenteSecretariaform()
-    if request.method == "POST":
-        form = AgenteSecretariaform(request.POST or None)
-        if form.is_valid():
-            form.save()
-            context['form'] = f
-            messages.info(request, "Agente de Secretaria Cadastrado com Sucesso!")
-            return render(request, "cadastroSecretary.html", context)
-    else:
-        form = AgenteSecretariaform()
-    context['form'] = form
-    return render(request, "cadastroSecretary.html", context)
-
-
-def listaAgenteSecretaria(request):
-    template = ""
-    context = {}
-    context["lista"] = AgenteSecretaria.objects.all()
-    return render(request, "listaSecretaria.html", context)
-
-
-def detalheAgenteSecretaria(request, id):
-    template = ""
-    context = {}
-    context['lista'] = AgenteSecretaria.objects.get(pk_agente_secretaria = id)
-    return render(request, "listaSecretariaID.html", context)
-
-###
-def cadastrarAdministradorSistema(request):
-    template = ""
-    context = {}
-    f = AdministradorSistemaForm()
-    if request.method == "POST":
-        form = AdministradorSistemaForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            context['form'] = f
-            messages.info(request, "Administrador de Sistema Cadastrado com Sucesso!")
-        return render(request, "cadastroSecretary.html", context)
-    else:
-        form = AdministradorSistemaForm()
-    context['form'] = form
-    return render(request, "cadastroSecretary.html", context)
-
-
-def listaAdministradorSistema(request):
-    template = ""
-    context = {}
-    context["lista"] = AdministradorSistema.objects.all()
-    return render(request, "listaSecretaria.html", context)
-
-
-def detalheAdministradorSistema(request, id):
-    template = ""
-    context = {}
-    context['lista'] = AdministradorSistema.objects.get(pk_adm_sistema = id)
-    return render(request, "listaSecretariaID.html", context)
-
-###
-def cadastrarEndereco(request):
-    template = ""
-    context = {}
-    f = EnderecoCadastroForm()
-    if request.method == "POST":
-        form = EnderecoCadastroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            context['form'] = f
-            messages.info(request, "Endereço Cadastrado com Sucesso!")
-            return render(request, "cadastroAddress.html", context)
-    else:
-        form = EnderecoCadastroForm()
-    context['form'] = form
-    return render(request, "cadastroAddress.html", context)
+def admSistema(request):
+    return render(request, "menuAdmSistema.html")
 
 ###
 def cadastrarCargo(request):
     template = ""
     context = {}
-    f = CargoCadastroForm()
+    f = CargoForm()
     if request.method == "POST":
-        form = CargoCadastroForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formCargo = CargoForm(request.POST)
+        if formCargo.is_valid():
+            formCargo.save()
             context['form'] = f
             messages.info(request, "Cargo Cadastrado com Sucesso!")
-            return render(request, "cadastroAddress.html", context)
+            return render(request, "cadDiverso.html", context)
     else:
-        form = CargoCadastroForm()
-    context['form'] = form
-    return render(request, "cadastroAddress.html", context)
+        formCargo = CargoForm()
+    context['form'] = formCargo
+    return render(request, "cadDiverso.html", context)
 
 ###
-def cadastrarDadosProfissional(request):
-    template = ""
+
+def cadastrarTipoProcedimento(request):
     context = {}
-    f = DadosProfissionalCadastroForm()
+    f = TipoProcedimentoForm
     if request.method == "POST":
-        form = DadosProfissionalCadastroForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formTipProcedimento = TipoProcedimentoForm(request.POST)
+        if formTipProcedimento.is_valid():
+            formTipProcedimento.save()
             context['form'] = f
-            messages.info(request, "Dados Profissionais Cadastrado com Sucesso!")
-            return render(request, "cadastroAddress.html", context)
+            messages.info(request, "Tipo de Procediemnto Cadastrado com Sucesso!")
+            return render(request, "cadDiverso.html", context)
     else:
-        form = DadosProfissionalCadastroForm()
-    context['form'] = form
-    return render(request, "cadastroAddress.html", context)
+        formTipProcedimento = TipoProcedimentoForm()
+    context['form'] = formTipProcedimento
+    return render(request, "cadDiverso.html", context)
+
+
+###
+def cadastrarPaciente(request):
+    context = {}
+    if request.method == 'POST':
+        formP = PacienteForm(request.POST)
+        formE = EnderecoForm(request.POST)
+        if formP.is_valid() and formE.is_valid():
+            endereco = formE.save()
+            paciente = formP.save(commit=False)
+            paciente.fk_endereco = endereco
+            paciente.save()
+            messages.info(request, "Paciente Cadastrado com Sucesso!")
+            return HttpResponseRedirect("/cadastrarPaciente")
+    else:
+        formP = PacienteForm()
+        formE = EnderecoForm()
+    return render(request, "paciente.html", {'formP': formP, 'formE': formE})

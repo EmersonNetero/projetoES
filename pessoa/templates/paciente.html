@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content%}
+<form method="POST" enctype="multipart/form-data">
+
+
+        {% csrf_token %}
+         {{formP.as_p}}
+
+        {{formE.as_p}}
+
+    <input type="submit" value="Submit">
+</form>
+
+{% if messages %}
+{% for message in messages %}
+    <div class="mensagem">
+        <strong><font color="red">{{message}}</font></strong>
+    </div>
+
+{% endfor %}
+{% endif %}
+{% endblock %}

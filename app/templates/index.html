@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Projeto ES2</title>
-</head>
-<body>
-	<h1>Hello world</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+        <div id="Menu">
+            <button onclick="logOut()"> sair </button>
+          </div>
+          <nav> Tela Inicial <hr> </nav>
+          <div id="Option">
+           <h3>Principais serviços</h3>
+           <hr>
+           <br>
+           <a href="/admsistema"<h4>IrparaAdmSitema <br></h4></a>
+           <br>
+            <button id="Consulta">Agendar Consulta</button>
+            <button id="Exame">Agendar Exame</button>
+            <button id="Cirurgia">Agendar Cirurgia</button>
+            <button id = "Agendamento">Consultar Agendamento</button>
+            <button id= "cronograma">Exibir Cronograma</button>
+            <button id="Pagamento">Realizar Pagamento</button>
+          </div>
+      </div>
+    {% endblock %}
