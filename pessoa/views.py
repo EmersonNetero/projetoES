@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
-from .models import AgenteSecretaria, AdministradorSistema, Cargo
+from .models import AgenteSecretaria, AdministradorSistema, Cargo, Profissao, AgenteSaude
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaform, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, AgenteSaudeform
 from django.contrib import messages
@@ -12,6 +12,7 @@ def home(request):
 	return render(request, "index.html")
 
 ###
+"""
 def login(request):
     data = {}
     data['form'] = LoginForm()
@@ -26,9 +27,39 @@ def login(request):
         else:
             messages.error(request, "email ou senha errado!!")
             return render(request, 'login.html', data)
- 
+
 
     return render(request, 'login.html', data)
+"""
+def login(request):
+    if request.method == 'POST':
+        email = request.POST['usuario']
+        senha = request.POST['senha']
+        email_confirm = Profissao.objects.filter(email=email)
+        senha_confirm = Profissao.objects.filter(senha=senha)
+
+        if len(email_confirm) > 0 and len(senha_confirm) > 0:
+            if len(AgenteSaude.objects.filter(email=email)) > 0:
+                print('agente de saude')# colocaria a tela do agente de saúde
+                return redirect('admSistema')
+            elif len(AgenteSecretaria.objects.filter(email=email)) > 0:
+                print('Agente da secretatia') # tela do agente de secretaria
+                return redirect('admSistema')
+            elif len(AdministradorSistema.objects.filter(email=email)) > 0:
+                print('Administrador do sistema')
+                return redirect('admSistema')
+
+        else:
+            messages.error(request, "email ou senha errado!!")
+            data = {}
+            data['form'] = LoginForm()
+            return render(request, 'login.html', data)
+
+    else:
+        data = {}
+        data['form'] = LoginForm()
+        return render(request, 'login.html', data)
+
 
 # telas do cargos 
 def admSistema(request):

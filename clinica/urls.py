@@ -8,7 +8,7 @@ from pessoa.views import home, login, \
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('login/', login),
-    path('', login),
+    path('', login, name="login"),
     path('admsistema/', admSistema, name='admSistema'),
     #path('cadastroAdministrador/', cadastrarAdministradorSistema),
     #path('cadastroEndereco/', cadastrarEndereco),
