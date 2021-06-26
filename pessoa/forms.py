@@ -22,6 +22,11 @@ class AgenteSecretariaform(ProfissaoForm):
         model = AgenteSecretaria
         fields = '__all__'
 
+class AgenteSaudeform(ProfissaoForm):
+    class Meta:
+        model = AgenteSaude
+        fields = '__all__'
+
 
 class AdministradorSistemaForm(ProfissaoForm):
     class Meta:

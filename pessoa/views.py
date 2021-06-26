@@ -1,9 +1,10 @@
 #from conda.base import context
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from django.http import HttpResponseRedirect
-from .models import AgenteSecretaria, AdministradorSistema
+from .models import AgenteSecretaria, AdministradorSistema, Cargo
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaform, AdministradorSistemaForm, CargoForm, \
-    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm
+    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, AgenteSaudeform
 from django.contrib import messages
 
 # Create your views here.
@@ -14,6 +15,19 @@ def home(request):
 def login(request):
     data = {}
     data['form'] = LoginForm()
+    if request.method == 'POST':
+        email = request.POST['usuario']
+        senha = request.POST['senha']
+        user = authenticate(username=email, password=senha)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('admSistema')
+        else:
+            messages.error(request, "email ou senha errado!!")
+            return render(request, 'login.html', data)
+ 
+
     return render(request, 'login.html', data)
 
 # telas do cargos 
@@ -72,3 +86,39 @@ def cadastrarPaciente(request):
         formP = PacienteForm()
         formE = EnderecoForm()
     return render(request, "paciente.html", {'formP': formP, 'formE': formE})
+
+
+def cadastraAgntSecretaria(request):
+    if request.method == "POST":
+        formS = AgenteSecretariaform(request.POST)
+        formE = EnderecoForm(request.POST)
+        if formS.is_valid() and formE.is_valid():
+            endereco = formE.save()
+            agntSecretaria = formS.save(commit=False)
+            agntSecretaria.fk_endereco = endereco
+            agntSecretaria.save()
+            messages.info(request, "Agente de secretaria cadastrado com sucesso")
+            return HttpResponseRedirect("/cadastrarAgntSecretaria")
+    else:
+        formS = AgendamentoForm()
+        formE = EnderecoForm()
+    return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE})
+
+
+def cadastraAgntSaude(request):
+    if request.method == "POST":
+        saude = AgenteSaudeform(request.POST)
+        formE = EnderecoForm(request.POST)
+        if saude.is_valid() and formE.is_valid():
+            endereco = formE.save()
+            agntSaude = saude.save(commit=False)
+            agntSaude.fk_endereco = endereco
+            agntSaude.save()
+            messages.info(request, "Agente de Saúde cadastrado com sucesso")
+            return HttpResponseRedirect("/cadastrarAgntSaude")
+    else:
+        saude = AgenteSaudeform()
+        formE = EnderecoForm()
+    return render(request, "agntSaude.html", {'saude': saude, 'formE': formE})
+
+
