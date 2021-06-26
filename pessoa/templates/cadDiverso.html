@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 
 {% block content%}
-
+<h2>...</h2>
+<hr>
 <form method="POST" enctype="multipart/form-data">
-
 
     {% csrf_token %}
     <table>
         <tr><th>{{form.as_p}}</th><th>{{formCargo.as_p}}</th><th>{{formTipProcedimento.as_p}}</th></tr>
-        
-        
-
-        
+         
     </table>
+    <div style="text-align: right;"><a href="/admsistema" class="btn btn-primary">Voltar</a>
+    <input  class="btn btn-primary" type="submit" value="Cadastrar"> </div>
 </form>
 
 {% if messages %}

@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h2>Cadastro de Agente de Saude</h2>
+<hr>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <table>
+        <table style = 'border-collapse: separate; border-spacing: 10px;'>
 
-        <tr><th>Dados</th><th>Endereço</th></tr>
+        <tr style = 'font-size:120%;'><th>Dados</th><th>Endereço</th></tr>
         <tr><th width="600px">{{saude.as_p}}</div></th><th style="position: absolute">{{formE.as_p}}</th></tr>
+        
+        </table>
         <div style="text-align: right;"><a href="/admsistema" class="btn btn-primary">Voltar</a>
         <input  class="btn btn-primary" type="submit" value="Cadastrar"> </div>
-        </table>
 
     </form>
 

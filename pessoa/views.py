@@ -131,7 +131,7 @@ def cadastraAgntSecretaria(request):
             messages.info(request, "Agente de secretaria cadastrado com sucesso")
             return HttpResponseRedirect("/cadastrarAgntSecretaria")
     else:
-        formS = AgendamentoForm()
+        formS = AgenteSecretariaform() #AgendamentoForm()
         formE = EnderecoForm()
     return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE})
 

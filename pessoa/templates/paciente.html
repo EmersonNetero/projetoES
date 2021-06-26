@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 
 {% block content%}
+<h2>Cadastro de Paciente</h2>
+<hr>
 <form method="POST" enctype="multipart/form-data">
 
 
         {% csrf_token %}
-         {{formP.as_p}}
 
-        {{formE.as_p}}
-
-    <input type="submit" value="Submit">
+        <table width="600px" style = 'border-collapse: separate; border-spacing: 10px;'>
+            <tr style = 'font-size:120%;'><th>Dados do paciente</th><th>Endereço</th></tr>
+            
+            <tr ><th>{{formP.as_p}}</th><th style="position: absolute;">{{formE.as_p}}</th></tr>
+        </table>
+        <div style="text-align: right;"><a href="/admsistema" class="btn btn-primary">Voltar</a>
+        <input  class="btn btn-primary" type="submit" value="Cadastrar"> </div>
 </form>
 
 {% if messages %}
