@@ -37,23 +37,17 @@ class Cargo(models.Model):
 
 ###
 class Profissao(models.Model):
-    USUARIO_CHOICE = [
-        (1, 'Administrador do Sistema'),
-        (2, 'Agente de Saúde'),
-        (3, 'Agente de Secretaria'),
-    ]
     pk_profissao = models.AutoField(primary_key=True, verbose_name = "pkProfissao")
     nome = models.CharField(max_length=200, null=False)
     cpf = models.CharField(max_length=11, null=False, unique = True)
     data_nascimento = models.DateField(null=False, blank = False, verbose_name = "data Nascimento")
     telefone = models.CharField(max_length=14, null=False, blank=False)
     rg = models.CharField(max_length=50, null=True, blank=True)
-    fotoPerfil = models.CharField(max_length=60, null=True, blank=True)
-    upload = models.FileField(null = True, blank = True,  verbose_name = "Upload da Foto")
+    fotoPerfil = models.FileField(upload_to='static/fotos/', null=True, blank=True, verbose_name="Foto do Perfil")
     matricula = models.CharField(max_length=20, null=False, blank=False, unique=True)
     pis_pasep = models.CharField(max_length=11, blank=True, null=True, unique=True)
     ctps = models.CharField(max_length=20, blank=True, null=True)
-    tipo_usuario = models.IntegerField(choices=USUARIO_CHOICE)
+    tipo_usuario = models.CharField(max_length=40, null=False, blank=False, verbose_name="Tipo de Usuario")
     email = models.EmailField(max_length=60, null=False, blank=False, unique=True)
     senha = models.CharField(max_length=30, null=False, blank=False)
     fk_endereco = models.ForeignKey('Endereco', db_column='pk_endereco', verbose_name = "fkEndereco", on_delete=models.PROTECT)
@@ -106,10 +100,6 @@ class AgenteSaude(Profissao):
 
     def __int__(self):
         return self.pk_agente_saude
-
-
-
-
 
 ###
 

@@ -2,21 +2,13 @@
 
 {% block content%}
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data"></form>
 
 
-    {% csrf_token %}
-
-    {{form.as_p}}
-
-    {{formAdm.as_p}}
-
-    {{formEndereco.as_p}}
 
 
 
     <input type="submit" value="Submit">
-</form>
 
 {% if messages %}
   {% for message in messages %}

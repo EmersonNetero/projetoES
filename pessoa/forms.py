@@ -60,3 +60,7 @@ class PacienteForm(ModelForm):
     class Meta:
         model = Paciente
         exclude = ('fk_endereco',)
+
+
+
+
