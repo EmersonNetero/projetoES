@@ -150,6 +150,7 @@ def cadastraAgntSaude(request):
     else:
         saude = AgenteSaudeform()
         formE = EnderecoForm()
+        print(saude)
     return render(request, "agntSaude.html", {'saude': saude, 'formE': formE})
 
 
