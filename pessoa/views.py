@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.forms import formset_factory
 from .models import AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
@@ -31,6 +31,10 @@ def login_user(request):
             return render(request, 'login.html')
     return render(request, 'login.html')
 
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
 
 
 # def login(request):
@@ -67,13 +71,10 @@ def login_user(request):
 
 # Create your views here.
 def home(request):
-	return render(request, "index.html")
+	return render(request, "principal.html")
 
 ###
-# def login(request):
-#     data = {}
-#     data['form'] = LoginForm()
-#     return render(request, 'login.html', data)
+
 
 # telas do cargos 
 def admSistema(request):

@@ -1,7 +1,10 @@
+
 {% extends "base.html" %}
 
 {% block content%}
+{% if user.is_authenticated %}
 <h3>ADMINISTRADOR DO SISTEMA</h3>
+<!-- <h4>{{user.get_full_name}}</h4> -->
 <table class="table">
     <thead class="table-dark">
     <tr>
@@ -142,6 +145,8 @@
     </tr>
 
 </table>
+{% else %}
+<h2>Faça <a href="/">login</a>  para acessar o sistema</h2>
 
-
+{% endif %}
 {% endblock%}
