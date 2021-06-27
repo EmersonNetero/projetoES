@@ -19,12 +19,12 @@
         <ul class="sidebar-nav">
 
             {% block foto %}
-            <img class="foto" src="{% static '/fotos/foto.png' %}" alt="" width="150" height="75"
+            <img class="foto" src="{% static '/fotos/man.png' %}" alt="" width="150" height="75"
                        class="d-inline-block align-text-top" align="center">
            {% endblock %}
             {% block usuario %}
             <div class="usuario">
-                Pinóquio
+                Usuário
                 <br>
             <button onclick="logOut()"> logout </button>
 
@@ -35,13 +35,13 @@
             <div class="line"></div>
 
           <a class="active"  href="/"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home</a>
-             <a href="/blog/"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Consultas</a>
-            <a href="/blog/"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Exames</a>
-            <a href="/blog/"> <img src="{% static '/icones/surgery.svg' %}" alt=""  width="20" height="20"> Cirurgias</a>
-            <a href="/blog/"> <img src="{% static '/icones/pagamento (1).svg' %}" alt=""  width="20" height="20"> Pagamentos</a>
-            <a href="/blog/"> <img src="{% static '/icones/calendar.svg' %}" alt=""  width="20" height="20"> Agendamentos</a>
-            <a href="/blog/"> <img src="{% static '/icones/rede.svg' %}" alt=""  width="20" height="20"> Cronograma</a>
-            <a href="/blog/"> <img src="{% static '/icones/user.svg' %}" alt=""  width="20" height="20"> Pacientes</a>
+             <a href="#"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Consultas</a>
+            <a href="#"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Exames</a>
+            <a href="#"> <img src="{% static '/icones/surgery.svg' %}" alt=""  width="20" height="20"> Cirurgias</a>
+            <a href="#"> <img src="{% static '/icones/pagamento (1).svg' %}" alt=""  width="20" height="20"> Pagamentos</a>
+            <a href="#"> <img src="{% static '/icones/calendar.svg' %}" alt=""  width="20" height="20"> Agendamentos</a>
+            <a href="#"> <img src="{% static '/icones/rede.svg' %}" alt=""  width="20" height="20"> Cronograma</a>
+            <a href="#"> <img src="{% static '/icones/user.svg' %}" alt=""  width="20" height="20"> Pacientes</a>
         </ul>
 
      {% endblock %}
