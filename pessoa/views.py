@@ -1,6 +1,8 @@
 #from conda.base import context
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.forms import formset_factory
 from .models import AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
@@ -9,21 +11,25 @@ from django.contrib import messages
 
 ###
 
-def login(request):
-    data = {}
-    data['form'] = LoginForm()
+def cria_user_django(info):
+    user = User.objects.create_user(info['email'], info['email'], info['senha'])
+    user.first_name = info['nome']
+    user.last_name = info['nome'] + 'sobrenome'
+    user.save()
+###
+
+def login_user(request):
     if request.method == 'POST':
         email = request.POST['usuario']
         senha = request.POST['senha']
-        user = authenticate(username=email, password=senha)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect('admSistema')
+        usuario = authenticate(request, username=email, password=senha)
+        if usuario is not None:
+            login(request, usuario)
+            return redirect('admSistema')
         else:
             messages.error(request, "email ou senha errado!!")
-            return render(request, 'login.html', data)
-    return render(request, 'login.html', data)
+            return render(request, 'login.html')
+    return render(request, 'login.html')
 
 
 
@@ -134,6 +140,7 @@ def cadastraAgntSecretaria(request):
         formS = AgenteSecretariaForm(request.POST)
         formE = EnderecoForm(request.POST)
         if formS.is_valid() and formE.is_valid():
+            cria_user_django(request.POST)
             endereco = formE.save()
             agntSecretaria = formS.save(commit=False)
             agntSecretaria.fk_endereco = endereco
@@ -151,6 +158,7 @@ def cadastraAgntSaude(request):
         saude = AgenteSaudeForm(request.POST)
         formE = EnderecoForm(request.POST)
         if saude.is_valid() and formE.is_valid():
+            cria_user_django(request.POST)
             endereco = formE.save()
             agntSaude = saude.save(commit=False)
             agntSaude.fk_endereco = endereco
@@ -185,6 +193,7 @@ def cadAdmSistema(request):
         adm = AdministradorSistemaForm(request.POST)
         formE = EnderecoForm(request.POST)
         if adm.is_valid() and formE.is_valid():
+            cria_user_django(request.POST)
             endereco = formE.save()
             adm2 = adm.save(commit=False)
             adm2.fk_endereco = endereco
