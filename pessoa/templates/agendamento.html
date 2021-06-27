@@ -7,13 +7,11 @@
 
     {% csrf_token %}
 
-    {{form.as_p}}
-
     {{formAgenda.as_p}}
-    {{formPag.as_p}}
 
 
-    <input type="submit" value="Submit">
+
+    <input type="submit" value="Realizar Agendamento">
 </form>
 
 {% if messages %}

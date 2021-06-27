@@ -169,7 +169,7 @@ def cadastrarEndereco(request):
     head = 3
     if request.method == "POST":
         formEndereco = EnderecoForm(request.POST)
-        if form.is_valid():
+        if formEndereco.is_valid():
             formEndereco.save()
             context['form'] = f
             messages.info(request, "Endereço Cadastrado com Sucesso!")
@@ -195,3 +195,18 @@ def cadAdmSistema(request):
         adm = AdministradorSistemaForm()
         formE = EnderecoForm()
     return render(request, "cadastroPessoa.html", {'adm': adm, 'formE': formE})
+
+
+def agendarConsultas(request):
+    context = {}
+    f = AgendamentoForm()
+    if request.method == 'POST':
+        formAgenda = AgendamentoForm(request.POST)
+        if formAgenda.is_valid():
+            formAgenda.save()
+            context['formAgenda'] = f
+            messages.info(request, "Agendamento cadastrado com sucesso!")
+            return HttpResponseRedirect("/agendamento")
+    else:
+        formAgenda = AgendamentoForm()
+    return render(request, "agendamento.html", {'formAgenda': formAgenda})
