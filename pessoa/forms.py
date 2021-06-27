@@ -14,19 +14,25 @@ class LoginForm(ModelForm):
 class ProfissaoForm(ModelForm):
     class Meta:
         model = Profissao
-        fields = '__all__'
+        exclude = ('fk_endereco',)
 
 
-class AgenteSecretariaform(ProfissaoForm):
+class AgenteSecretariaForm(ProfissaoForm):
     class Meta:
         model = AgenteSecretaria
-        fields = '__all__'
+        exclude = ('fk_endereco',)
+
+
+class AgenteSaudeForm(ProfissaoForm):
+    class Meta:
+        model = AgenteSaude
+        exclude = ('fk_endereco',)
 
 
 class AdministradorSistemaForm(ProfissaoForm):
     class Meta:
         model = AdministradorSistema
-        fields = '__all__'
+        exclude = ('fk_endereco',)
 
 
 class EnderecoForm(ModelForm):

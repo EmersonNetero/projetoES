@@ -1,23 +1,31 @@
 {% extends "base.html" %}
-
-{% block content%}
+{% block content %}
+<h3>CADASTRO DE PACIENTES</h3>
 <form method="POST" enctype="multipart/form-data">
-
-
-        {% csrf_token %}
-         {{formP.as_p}}
-
-        {{formE.as_p}}
-
-    <input type="submit" value="Submit">
+    {% csrf_token %}
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>Dados Pessoais</th>
+            <th>Endereço</th>
+        </tr>
+        </thead>
+        <tr>
+            <th width="600px">{{formP.as_p}}</th>
+            <th style="position: absolute">{{formE.as_p}}
+                <input class="btn btn-primary" type="submit" value="Cadastrar">
+                <input class="btn btn-primary" type="reset" value="Limpar Formulário">
+                <a href="/admsistema" class="btn btn-primary">Voltar</a>
+            </th>
+        </tr>
+    </table>
 </form>
-
 {% if messages %}
 {% for message in messages %}
-    <div class="mensagem">
-        <strong><font color="red">{{message}}</font></strong>
-    </div>
-
-{% endfor %}
+<div class="mensagem">
+    <strong><font color="red">{{message}}</font></strong>
+</div>
+{% endfor%}
 {% endif %}
-{% endblock %}
+
+{% endblock%}

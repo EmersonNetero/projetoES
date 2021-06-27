@@ -1,30 +1,42 @@
 {% extends "base.html" %}
-
-{% block content%}
-
+{% block content %}
+{% if head == 1 %}
+<h3>CADASTRO DECARGO</h3>
+{% elif head == 2 %}
+<h3>CADASTRO DE TIPOS DE PROCEDIMENTOS</h3>
+{% elif head == 3 %}
+<h3>CADASTRO DE ENDEREÇOS</h3>
+{% endif %}
 <form method="POST" enctype="multipart/form-data">
-
-
     {% csrf_token %}
-
-    {{form.as_p}}
-    {{formCargo.as_p}}
-    {{formTipProcedimento.as_p}}
-
-    <input type="submit" value="Submit">
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>Dados</th>
+        </tr>
+        </thead>
+        <tr>
+            <th>
+                {% if head == 1 %}
+                {{formG.as_p}}
+                {% elif head == 2 %}
+                {{formTp.as_p}}
+                {% elif head == 3 %}
+                {{formEn.as_p}}
+                {% endif %}
+                <input class="btn btn-primary" type="submit" value="Cadastrar">
+                <input class="btn btn-primary" type="reset" value="Limpar Formulário">
+                <a href="/admsistema" class="btn btn-primary">Voltar</a>
+            </th>
+        </tr>
+    </table>
 </form>
-
 {% if messages %}
 {% for message in messages %}
-    <div class="mensagem">
-        <strong><font color="red">{{message}}</font></strong>
-    </div>
-
-{% endfor %}
+<div class="mensagem">
+    <strong><font color="red">{{message}}</font></strong>
+</div>
+{% endfor%}
 {% endif %}
 
-
-    <a href="/admsistema" class="btn btn-primary">Voltar</a>
-
-
-{% endblock %}
+{% endblock%}

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h3>CADASTRO DE ADMINISTRADOR DO SISTEMA</h3>
+<h3>CADASTRO DE AGENTE DE SAÚDE</h3>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table">
@@ -12,7 +11,7 @@
         </tr>
         </thead>
         <tr>
-            <th width="600px">{{adm.as_p}}</th>
+            <th width="600px">{{saude.as_p}}</th>
             <th style="position: absolute">{{formE.as_p}}
                 <input class="btn btn-primary" type="submit" value="Cadastrar">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
