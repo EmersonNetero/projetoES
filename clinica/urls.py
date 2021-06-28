@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from pessoa.views import home, login_user, \
     cadastrarCargo, admSistema, cadastrarTipoProcedimento, cadastrarPaciente, cadastraAgntSecretaria, cadastraAgntSaude, \
-    cadastrarEndereco, cadAdmSistema, agendarConsultas, logout_user
+    cadastrarEndereco, cadAdmSistema, agendarConsultas, agtSaude, agtSecretaria, logout_user
 
 
 urlpatterns = [
@@ -20,5 +20,6 @@ urlpatterns = [
     path('cadastrarAgntSaude/', cadastraAgntSaude, name='cadastrarAgntSaude'),
     path('cadAdmSistema/', cadAdmSistema),
     path('agendamento/', agendarConsultas, name='agendamento'),
-
+    path('agtSaude/', agtSaude),
+    path('agtSecretaria/', agtSecretaria),
 ]

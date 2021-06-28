@@ -220,3 +220,9 @@ def agendarConsultas(request):
     else:
         formAgenda = AgendamentoForm()
     return render(request, "agendamento.html", {'formAgenda': formAgenda})
+
+def agtSaude(request):
+    return render(request, "menuAgtSaude.html")
+
+def agtSecretaria(request):
+    return render(request, "menuAgtSecretaria.html")
