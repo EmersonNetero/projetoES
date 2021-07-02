@@ -201,6 +201,7 @@ class Procedimento(models.Model):
     gravidade = models.CharField(max_length=100, null=True, blank=True, unique=False)
     descricao = models.TextField(max_length=300, null=True, blank=True, unique=False)
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False)
+    valor = models.CharField(max_length = 10, null = True, blank=True, unique=False)
     reaçizado = models.BooleanField(null=True)
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente',
                                              verbose_name="fkPaciente",
