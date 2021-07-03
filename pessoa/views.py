@@ -3,11 +3,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.forms import formset_factory
 from .models import AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm
 from django.contrib import messages
+
 
 ###
 
@@ -35,38 +35,6 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
-
-
-# def login(request):
-#     if request.method == 'POST':
-#         email = request.POST['usuario']
-#         senha = request.POST['senha']
-#         email_confirm = Profissao.objects.filter(email=email)
-#         senha_confirm = Profissao.objects.filter(senha=senha)
-#
-#         if len(email_confirm) > 0 and len(senha_confirm) > 0:
-#             if len(AgenteSaude.objects.filter(email=email)) > 0:
-#                 print('agente de saude')  # colocaria a tela do agente de saúde
-#                 return redirect('admSistema')
-#             elif len(AgenteSecretaria.objects.filter(email=email)) > 0:
-#                 print('Agente da secretatia')  # tela do agente de secretaria
-#                 return redirect('admSistema')
-#             elif len(AdministradorSistema.objects.filter(email=email)) > 0:
-#                 print('Administrador do sistema')
-#                 return redirect('admSistema')
-#
-#         else:
-#             messages.error(request, "email ou senha errado!!")
-#             data = {}
-#             data['form'] = LoginForm()
-#             return render(request, 'login.html', data)
-#
-#     else:
-#         data = {}
-#         data['form'] = LoginForm()
-#         return render(request, 'login.html', data)
-
-
 
 
 # Create your views here.
@@ -174,7 +142,7 @@ def cadastraAgntSaude(request):
 ###
 def cadastrarEndereco(request):
     context = {}
-    f = EnderecoForm()
+    f = EnderecoForm
     head = 3
     if request.method == "POST":
         formEndereco = EnderecoForm(request.POST)
@@ -184,9 +152,10 @@ def cadastrarEndereco(request):
             messages.info(request, "Endereço Cadastrado com Sucesso!")
             return render(request, "cadDiverso.html", {'formEn': f, 'head': head})
     else:
-        formEndereco = EnderecoForm(prefix='adr')
+        formEndereco = EnderecoForm()
     context['form'] = formEndereco
     return render(request, "cadDiverso.html", {'formEn': formEndereco, 'head': head})
+
 
 ###
 def cadAdmSistema(request):
