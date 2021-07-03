@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Consultar Agendamento</h3>
+<table class="table">
+    <tbody>
+        {% for dbs in db %}
+            <tr>
+                <th>{{dbs.tipo_agendamento}}</th>
+                <th>{{dbs.fk_paciente}}</th>
+                <th>{{dbs.data_agendamento}}</th>
+                
+                
+                
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock%}

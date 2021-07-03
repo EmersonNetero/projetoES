@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -82,8 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbCentroMedico',
+
         'USER': 'postgres',
         'PASSWORD': 'postgres',
+
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -91,6 +95,7 @@ DATABASES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'app')
 MEDIA_URL = '/app/'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -1,73 +1,49 @@
 #from conda.base import context
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.forms import formset_factory
-from .models import AgenteSecretaria, AdministradorSistema
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm
 from django.contrib import messages
+from django.core.paginator import Paginator
+
 
 ###
 
-def login(request):
-    data = {}
-    data['form'] = LoginForm()
+def cria_user_django(info):
+    user = User.objects.create_user(info['email'], info['email'], info['senha'])
+    user.first_name = info['nome']
+    user.last_name = info['nome'] + 'sobrenome'
+    user.save()
+###
+
+def login_user(request):
     if request.method == 'POST':
         email = request.POST['usuario']
         senha = request.POST['senha']
-        user = authenticate(username=email, password=senha)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect('admSistema')
+        usuario = authenticate(request, username=email, password=senha)
+        if usuario is not None:
+            login(request, usuario)
+            return redirect('admSistema')
         else:
             messages.error(request, "email ou senha errado!!")
-            return render(request, 'login.html', data)
-    return render(request, 'login.html', data)
+            return render(request, 'login.html')
+    return render(request, 'login.html')
 
 
-
-# def login(request):
-#     if request.method == 'POST':
-#         email = request.POST['usuario']
-#         senha = request.POST['senha']
-#         email_confirm = Profissao.objects.filter(email=email)
-#         senha_confirm = Profissao.objects.filter(senha=senha)
-#
-#         if len(email_confirm) > 0 and len(senha_confirm) > 0:
-#             if len(AgenteSaude.objects.filter(email=email)) > 0:
-#                 print('agente de saude')  # colocaria a tela do agente de saúde
-#                 return redirect('admSistema')
-#             elif len(AgenteSecretaria.objects.filter(email=email)) > 0:
-#                 print('Agente da secretatia')  # tela do agente de secretaria
-#                 return redirect('admSistema')
-#             elif len(AdministradorSistema.objects.filter(email=email)) > 0:
-#                 print('Administrador do sistema')
-#                 return redirect('admSistema')
-#
-#         else:
-#             messages.error(request, "email ou senha errado!!")
-#             data = {}
-#             data['form'] = LoginForm()
-#             return render(request, 'login.html', data)
-#
-#     else:
-#         data = {}
-#         data['form'] = LoginForm()
-#         return render(request, 'login.html', data)
-
-
+def logout_user(request):
+    logout(request)
+    return redirect('login')
 
 
 # Create your views here.
 def home(request):
-	return render(request, "index.html")
+	return render(request, "principal.html")
 
 ###
-# def login(request):
-#     data = {}
-#     data['form'] = LoginForm()
-#     return render(request, 'login.html', data)
+
 
 # telas do cargos 
 def admSistema(request):
@@ -134,6 +110,7 @@ def cadastraAgntSecretaria(request):
         formS = AgenteSecretariaForm(request.POST)
         formE = EnderecoForm(request.POST)
         if formS.is_valid() and formE.is_valid():
+            cria_user_django(request.POST)
             endereco = formE.save()
             agntSecretaria = formS.save(commit=False)
             agntSecretaria.fk_endereco = endereco
@@ -151,6 +128,7 @@ def cadastraAgntSaude(request):
         saude = AgenteSaudeForm(request.POST)
         formE = EnderecoForm(request.POST)
         if saude.is_valid() and formE.is_valid():
+            cria_user_django(request.POST)
             endereco = formE.save()
             agntSaude = saude.save(commit=False)
             agntSaude.fk_endereco = endereco
@@ -165,19 +143,20 @@ def cadastraAgntSaude(request):
 ###
 def cadastrarEndereco(request):
     context = {}
-    f = EnderecoForm()
+    f = EnderecoForm
     head = 3
     if request.method == "POST":
         formEndereco = EnderecoForm(request.POST)
-        if form.is_valid():
+        if formEndereco.is_valid():
             formEndereco.save()
             context['form'] = f
             messages.info(request, "Endereço Cadastrado com Sucesso!")
             return render(request, "cadDiverso.html", {'formEn': f, 'head': head})
     else:
-        formEndereco = EnderecoForm(prefix='adr')
+        formEndereco = EnderecoForm()
     context['form'] = formEndereco
     return render(request, "cadDiverso.html", {'formEn': formEndereco, 'head': head})
+
 
 ###
 def cadAdmSistema(request):
@@ -185,6 +164,7 @@ def cadAdmSistema(request):
         adm = AdministradorSistemaForm(request.POST)
         formE = EnderecoForm(request.POST)
         if adm.is_valid() and formE.is_valid():
+            cria_user_django(request.POST)
             endereco = formE.save()
             adm2 = adm.save(commit=False)
             adm2.fk_endereco = endereco
@@ -195,3 +175,32 @@ def cadAdmSistema(request):
         adm = AdministradorSistemaForm()
         formE = EnderecoForm()
     return render(request, "cadastroPessoa.html", {'adm': adm, 'formE': formE})
+
+
+def agendarConsultas(request):
+    context = {}
+    f = AgendamentoForm()
+    if request.method == 'POST':
+        formAgenda = AgendamentoForm(request.POST)
+        if formAgenda.is_valid():
+            formAgenda.save()
+            context['formAgenda'] = f
+            messages.info(request, "Agendamento cadastrado com sucesso!")
+            return HttpResponseRedirect("/agendamento")
+    else:
+        formAgenda = AgendamentoForm()
+    return render(request, "agendamento.html", {'formAgenda': formAgenda})
+
+def agtSaude(request):
+    return render(request, "menuAgtSaude.html")
+
+def agtSecretaria(request):
+    return render(request, "menuAgtSecretaria.html")
+
+def viewAgendamento(request):
+    agendamentos = {}
+    All = Agendamento.objects.all()
+    paginator = Paginator(All, 5)
+    pages = request.GET.get('page')
+    agendamentos['db'] = paginator.get_page(pages)
+    return render(request, 'consultarAgendamento.html', agendamentos)
