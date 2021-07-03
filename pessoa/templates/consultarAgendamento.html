@@ -3,15 +3,23 @@
 {% block content %}
 <h3>Consultar Agendamento</h3>
 <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Procedimento</th>
+            <th scope="col">Paciente</th>
+            <th scope="col">Data de Agendamento</th>
+            <th scope="col">Profissional Responsavel</th>
+            <th scope="col">Pago</th>
+        </tr>
+    </thead>
     <tbody>
         {% for dbs in db %}
-            <tr>
-                <th>{{dbs.tipo_agendamento}}</th>
+            <tr>  
+                <th>{{dbs.fk_tipo_procedimento}}</th>
                 <th>{{dbs.fk_paciente}}</th>
                 <th>{{dbs.data_agendamento}}</th>
-                
-                
-                
+                <th>{{dbs.fk_agente_saude}}</th>
+                <th>{{dbs.pago}}</th>
             </tr>
         {% endfor %}
     </tbody>
