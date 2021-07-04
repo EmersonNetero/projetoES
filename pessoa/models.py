@@ -198,7 +198,7 @@ class Procedimento(models.Model):
     descricao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Descrição")
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Observação")
     valor = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False, verbose_name = "Valor *")
-    reaçizado = models.BooleanField(null=True, default=False)
+    realizado = models.BooleanField(null=True, default=False)
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente', blank=False,
                                              verbose_name="Paciente *",
                                              on_delete=models.PROTECT)
