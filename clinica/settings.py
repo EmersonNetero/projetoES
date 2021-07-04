@@ -93,8 +93,8 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'app')
-MEDIA_URL = '/app/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'app/static/')
+MEDIA_URL = ''
 
 
 # Password validation

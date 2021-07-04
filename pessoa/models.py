@@ -43,7 +43,7 @@ class Profissao(models.Model):
     data_nascimento = models.DateField(null=False, blank = False, verbose_name = "Data Nascimento *")
     telefone = models.CharField(max_length=14, null=False, blank=False, verbose_name="Telefone *")
     rg = models.CharField(max_length=50, null=True, blank=True, verbose_name="RG")
-    fotoPerfil = models.FileField(upload_to='static/fotos/', null=True, blank=True, verbose_name="Foto do Perfil")
+    fotoPerfil = models.FileField(upload_to='fotos/', null=True, blank=True, verbose_name="Foto do Perfil")
     matricula = models.CharField(max_length=20, null=False, blank=False, unique=True, verbose_name="Matrícula *")
     pis_pasep = models.CharField(max_length=11, blank=True, null=True, unique=True, verbose_name="PIS PASEP")
     ctps = models.CharField(max_length=20, blank=True, null=True, verbose_name="Carteira Trabalho")

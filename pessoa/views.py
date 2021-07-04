@@ -107,7 +107,7 @@ def cadastrarPaciente(request):
 ###
 def cadastraAgntSecretaria(request):
     if request.method == "POST":
-        formS = AgenteSecretariaForm(request.POST)
+        formS = AgenteSecretariaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
         if formS.is_valid() and formE.is_valid():
             cria_user_django(request.POST)
@@ -125,7 +125,7 @@ def cadastraAgntSecretaria(request):
 ###
 def cadastraAgntSaude(request):
     if request.method == "POST":
-        saude = AgenteSaudeForm(request.POST)
+        saude = AgenteSaudeForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
         if saude.is_valid() and formE.is_valid():
             cria_user_django(request.POST)
@@ -161,7 +161,7 @@ def cadastrarEndereco(request):
 ###
 def cadAdmSistema(request):
     if request.method == "POST":
-        adm = AdministradorSistemaForm(request.POST)
+        adm = AdministradorSistemaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
         if adm.is_valid() and formE.is_valid():
             cria_user_django(request.POST)
