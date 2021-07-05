@@ -11,6 +11,7 @@ class LoginForm(ModelForm):
             'senha': forms.PasswordInput(),}
         fields = ['email', 'senha']
 
+
 class ProfissaoForm(ModelForm):
     class Meta:
         model = Profissao
@@ -46,6 +47,7 @@ class CargoForm(ModelForm):
         model = Cargo
         fields = '__all__'
 
+
 class TipoProcedimentoForm(ModelForm):
     class Meta:
         model = TipoProcedimento
@@ -57,10 +59,12 @@ class AgendamentoForm(ModelForm):
         model = Agendamento
         fields = '__all__'
 
+
 class PagamentoForm(ModelForm):
     class Meta:
         model = Pagamento
         fields = '__all__'
+
 
 class PacienteForm(ModelForm):
     class Meta:
@@ -68,5 +72,8 @@ class PacienteForm(ModelForm):
         exclude = ('fk_endereco',)
 
 
-
+class ProcedimentoForm(ModelForm):
+    class Meta:
+        model = Procedimento
+        fields = '__all__'
 
