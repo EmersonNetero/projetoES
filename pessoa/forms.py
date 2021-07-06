@@ -1,8 +1,11 @@
 from django.forms import ModelForm
 from django import forms
+from input_mask.widgets import InputMask
 from pessoa.models import Profissao, Endereco, AgenteSecretaria, AdministradorSistema, Cargo, Procedimento, \
     TipoProcedimento, Pagamento, Paciente, AgenteSaude, Agendamento
 
+class MyCustomInput(InputMask):
+   mask = {'cpf': '000.000.000-00'}
 
 class LoginForm(ModelForm):
     class Meta:
