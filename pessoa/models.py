@@ -147,6 +147,7 @@ class Agendamento(models.Model):
     tipo_agendamento = models.CharField(max_length=30, null=False, blank=False, verbose_name="Tipo de Agendamento *")
     data_agendamento = models.DateField(auto_now_add = True, null=False, blank=False, verbose_name="Data do Agendamento *")
     pago = models.BooleanField(null = True, default=False)
+    valor = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False, verbose_name="Valor *")
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Observação")
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente', blank=False,
                                              verbose_name="Paciente *",
@@ -197,7 +198,6 @@ class Procedimento(models.Model):
     gravidade = models.CharField(max_length=100, null=True, blank=True, unique=False)
     descricao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Descrição")
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Observação")
-    valor = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False, verbose_name = "Valor *")
     realizado = models.BooleanField(null=True, default=False)
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente', blank=False,
                                              verbose_name="Paciente *",
