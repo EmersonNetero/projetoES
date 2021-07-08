@@ -1,8 +1,11 @@
 from django.forms import ModelForm
 from django import forms
+# from inputmask.widgets import InputMask
 from pessoa.models import Profissao, Endereco, AgenteSecretaria, AdministradorSistema, Cargo, Procedimento, \
     TipoProcedimento, Pagamento, Paciente, AgenteSaude, Agendamento
 
+# class MyCustomInput(InputMask):
+#    mask = {'cpf': '000.000.000-00'}
 
 class LoginForm(ModelForm):
     class Meta:
@@ -10,6 +13,7 @@ class LoginForm(ModelForm):
         widgets = {
             'senha': forms.PasswordInput(),}
         fields = ['email', 'senha']
+
 
 class ProfissaoForm(ModelForm):
     class Meta:
@@ -46,6 +50,7 @@ class CargoForm(ModelForm):
         model = Cargo
         fields = '__all__'
 
+
 class TipoProcedimentoForm(ModelForm):
     class Meta:
         model = TipoProcedimento
@@ -57,10 +62,12 @@ class AgendamentoForm(ModelForm):
         model = Agendamento
         fields = '__all__'
 
+
 class PagamentoForm(ModelForm):
     class Meta:
         model = Pagamento
         fields = '__all__'
+
 
 class PacienteForm(ModelForm):
     class Meta:
@@ -68,5 +75,8 @@ class PacienteForm(ModelForm):
         exclude = ('fk_endereco',)
 
 
-
+class ProcedimentoForm(ModelForm):
+    class Meta:
+        model = Procedimento
+        fields = '__all__'
 

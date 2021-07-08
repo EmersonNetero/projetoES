@@ -1,44 +1,36 @@
 {% extends "base.html" %}
 
 {% block content%}
-<h3>Agendar Consulta</h3>
+<h3>REGISTRAR PROCEDIMENTO</h3>
 <form method="POST" enctype="multipart/form-data">
-
 
     {% csrf_token %}
 
-    
     <table class="table">
         <thead class="table-dark">
         <tr>
-            <th>Dados da Consulta</th>
+            <th>Dados do Procedimento</th>
             <th></th>
         </tr>
         </thead>
         <tr>
-            <th width="600px">{{formAgenda.as_p}}</th>
+            <th width="600px">{{formProcedimento.as_p}}</th>
             <th style="position: absolute">
-                <input class="btn btn-primary" type="submit" value="Realizar Agendamento">
+                <input class="btn btn-primary" type="submit" value="Registrar Procedimento">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
             </th>
         </tr>
     </table>
-
-
-        
 </form>
 
 {% if messages %}
 {% for message in messages %}
-    <div class="mensagem">
-        <strong><font color="red">{{message}}</font></strong>
-    </div>
+<div class="mensagem">
+    <strong><font color="red">{{message}}</font></strong>
+</div>
 
 {% endfor %}
 {% endif %}
-
-
-
 
 {% endblock %}

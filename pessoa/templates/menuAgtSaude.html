@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content%}
+<h3>AGENTE DE SAÚDE</h3>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th>Agendamentos</th>
+        <th colspan="2" style="text-align:center">Prontuário</th>
+
+    </tr>
+    </thead>
+    <tr>
+        <td>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: blue">EXIBIR CRONOGRAMA</h5>
+                    <p class="card-text">Exibe cronograma de serviços</p>
+                    <a href="#" class="btn btn-primary">Exibir</a>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: blue">CONSULTAR PROTUARIO</h5>
+                    <p class="card-text">Exibe informações sobre o prontuário do paciente</p>
+                    <a href="#" class="btn btn-primary">Consultar</a>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: blue">REGISTRO DE  PROCEDIMENTO</h5>
+                    <p class="card-text">Cadastrar informações do procedimento realizado</p>
+                    <a href="/realProcedimento" class="btn btn-primary">Cadastrar</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+
+    
+
+</table>
+
+
+{% endblock%}

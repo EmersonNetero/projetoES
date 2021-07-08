@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +25,9 @@
            {% endblock %}
             {% block usuario %}
             <div class="usuario">
-                Usuário
+
                 <br>
-            <button onclick="logOut()"> logout </button>
+            <button class="btn primary"> <a href="/logout">Sair</a></button>
 
 
             </div>
@@ -34,8 +35,8 @@
 
             <div class="line"></div>
 
-          <a class="active"  href="/"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home</a>
-             <a href="#"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Consultas</a>
+            <a href="/"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home</a>
+            <a href="#"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Consultas</a>
             <a href="#"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Exames</a>
             <a href="#"> <img src="{% static '/icones/surgery.svg' %}" alt=""  width="20" height="20"> Cirurgias</a>
             <a href="#"> <img src="{% static '/icones/pagamento (1).svg' %}" alt=""  width="20" height="20"> Pagamentos</a>

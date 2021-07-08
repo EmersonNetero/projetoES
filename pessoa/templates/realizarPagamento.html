@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Realizar Pagamento</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Procedimento</th>
+            <th scope="col">Paciente</th>
+            <th scope="col">Data de Agendamento</th>
+            <th scope="col">Profissional Responsavel</th>
+            <th scope="col">Pago</th>
+            <th> </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for dbs in db %}
+            <tr>  
+                <th>{{dbs.fk_tipo_procedimento}}</th>
+                <th>{{dbs.fk_paciente}}</th>
+                <th>{{dbs.data_agendamento}}</th>
+                <th>{{dbs.fk_agente_saude}}</th>
+                <th>{{dbs.pago}}</th>
+                <th>
+                    <a href="/pagar/{{dbs.fk_tipo_procedimento}" class="btn primary">Pagar</a>
+                </th>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock%}

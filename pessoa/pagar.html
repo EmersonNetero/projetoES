@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Realizar Pagamento</h3>
+<table class="table">
+    <tbody>
+            <tr>  
+                <th>{{dbs.fk_agendamento}}</th>
+                <th>{{dbs.fk_paciente}}</th>
+                <th>{{dbs.valor}}</th>
+            </tr>
+    </tbody>
+</table>
+
+
+{% endblock%}

@@ -1,7 +1,10 @@
+
 {% extends "base.html" %}
 
 {% block content%}
+{% if user.is_authenticated %}
 <h3>ADMINISTRADOR DO SISTEMA</h3>
+<!-- <h4>{{user.get_full_name}}</h4> -->
 <table class="table">
     <thead class="table-dark">
     <tr>
@@ -25,7 +28,7 @@
                 <div class="card-body">
                     <h5 class="card-title" style="color: blue">AGENDAR CONSULTAS</h5>
                     <p class="card-text">Agendamento de consulta em diversas especialidades</p>
-                    <a href="#" class="btn btn-primary">Iniciar Cadastro</a>
+                    <a href="/agendamento" class="btn btn-primary">Iniciar Cadastro</a>
                 </div>
             </div>
         </td>
@@ -92,7 +95,7 @@
                 <div class="card-body">
                     <h5 class="card-title" style="color: blue">EXIBIR CRONOGRAMA</h5>
                     <p class="card-text">Exibe cronograma de serviços</p>
-                    <a href="#" class="btn btn-primary">Exibir</a>
+                    <a href="/cronograma" class="btn btn-primary">Exibir</a>
                 </div>
             </div>
         </td>
@@ -111,7 +114,7 @@
                 <div class="card-body">
                     <h5 class="card-title" style="color: blue">CONSULTAR AGENDAMENTOS</h5>
                     <p class="card-text">Exibir a relação de agedamentos</p>
-                    <a href="#" class="btn btn-primary">Consultar</a>
+                    <a href="/consultarAgendamento" class="btn btn-primary">Consultar</a>
                 </div>
             </div>
         </td>
@@ -142,6 +145,8 @@
     </tr>
 
 </table>
+{% else %}
+<h2>Faça <a href="/">login</a>  para acessar o sistema</h2>
 
-
+{% endif %}
 {% endblock%}
