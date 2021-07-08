@@ -9,7 +9,7 @@
             <th scope="col">Paciente</th>
             <th scope="col">Data de Agendamento</th>
             <th scope="col">Profissional Responsavel</th>
-            <th scope="col">Pago</th>
+            <th scope="col">Valor</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
                 <th>{{dbs.fk_paciente}}</th>
                 <th>{{dbs.data_agendamento}}</th>
                 <th>{{dbs.fk_agente_saude}}</th>
-                <th>{{dbs.pago}}</th>
+                <th>R$ {{dbs.valor}}</th>
             </tr>
         {% endfor %}
     </tbody>
