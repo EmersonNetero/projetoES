@@ -202,6 +202,14 @@ def viewAgendamento(request):
     agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'consultarAgendamento.html', agendamentos)
 
+def viewCronograma(request):
+    agendamentos = {}
+    All = Agendamento.objects.all()
+    paginator = Paginator(All, 5)
+    pages = request.GET.get('page')
+    agendamentos['db'] = paginator.get_page(pages)
+    return render(request, 'cronograma.html', agendamentos)
+
 def telaPagamento(request):
     agendamentos = {}
     All = Agendamento.objects.all()
