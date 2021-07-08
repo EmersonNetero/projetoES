@@ -5,20 +5,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Pagamento
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
-    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm
+    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 
 
 ###
-
 def cria_user_django(info):
     user = User.objects.create_user(info['email'], info['email'], info['senha'])
     user.first_name = info['nome']
     user.last_name = info['nome'] + 'sobrenome'
     user.save()
-###
 
+###
 def login_user(request):
     if request.method == 'POST':
         email = request.POST['usuario']
@@ -32,19 +31,17 @@ def login_user(request):
             return render(request, 'login.html')
     return render(request, 'login.html')
 
-
+###
 def logout_user(request):
     logout(request)
     return redirect('login')
 
 
-# Create your views here.
+###
 def home(request):
 	return render(request, "principal.html")
 
 ###
-
-
 # telas do cargos 
 def admSistema(request):
     return render(request, "menuAdmSistema.html")
@@ -67,7 +64,6 @@ def cadastrarCargo(request):
     return render(request, "cadDiverso.html", {'formG': formCargo, 'head': head})
 
 ###
-
 def cadastrarTipoProcedimento(request):
     context = {}
     f = TipoProcedimentoForm
@@ -103,11 +99,10 @@ def cadastrarPaciente(request):
         formE = EnderecoForm()
     return render(request, "paciente.html", {'formP': formP, 'formE': formE})
 
-
 ###
 def cadastraAgntSecretaria(request):
     if request.method == "POST":
-        formS = AgenteSecretariaForm(request.POST)
+        formS = AgenteSecretariaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
         if formS.is_valid() and formE.is_valid():
             cria_user_django(request.POST)
@@ -125,7 +120,7 @@ def cadastraAgntSecretaria(request):
 ###
 def cadastraAgntSaude(request):
     if request.method == "POST":
-        saude = AgenteSaudeForm(request.POST)
+        saude = AgenteSaudeForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
         if saude.is_valid() and formE.is_valid():
             cria_user_django(request.POST)
@@ -157,11 +152,10 @@ def cadastrarEndereco(request):
     context['form'] = formEndereco
     return render(request, "cadDiverso.html", {'formEn': formEndereco, 'head': head})
 
-
 ###
 def cadAdmSistema(request):
     if request.method == "POST":
-        adm = AdministradorSistemaForm(request.POST)
+        adm = AdministradorSistemaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
         if adm.is_valid() and formE.is_valid():
             cria_user_django(request.POST)
@@ -176,7 +170,7 @@ def cadAdmSistema(request):
         formE = EnderecoForm()
     return render(request, "cadastroPessoa.html", {'adm': adm, 'formE': formE})
 
-
+###
 def agendarConsultas(request):
     context = {}
     f = AgendamentoForm()
@@ -191,12 +185,15 @@ def agendarConsultas(request):
         formAgenda = AgendamentoForm()
     return render(request, "agendamento.html", {'formAgenda': formAgenda})
 
+###
 def agtSaude(request):
     return render(request, "menuAgtSaude.html")
 
+###
 def agtSecretaria(request):
     return render(request, "menuAgtSecretaria.html")
 
+###
 def viewAgendamento(request):
     agendamentos = {}
     All = Agendamento.objects.all()
@@ -217,3 +214,18 @@ def pagar(request, pk):
     pagamentos = {}
     pagamentos['db'] = Pagamento.objects.get(pk=pk)
     return render(request, 'pagar.html', pagamentos)
+###
+def realizarProcedimento(request):
+    context = {}
+    f = ProcedimentoForm
+    if request.method == "POST":
+        formProcedimento = ProcedimentoForm(request.POST)
+        if formProcedimento.is_valid():
+            formProcedimento.save()
+            context['formProcedimento'] = f
+            messages.info(request, "Procedimento Realizado com Sucesso!")
+            return render(request, "procedimento.html", {'formProcedimento': formProcedimento})
+    else:
+        formProcedimento = ProcedimentoForm()
+    context['formProcedimento'] = formProcedimento
+    return render(request, "procedimento.html", {'formProcedimento': formProcedimento})
