@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Pagamento
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm
 from django.contrib import messages
@@ -204,3 +204,16 @@ def viewAgendamento(request):
     pages = request.GET.get('page')
     agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'consultarAgendamento.html', agendamentos)
+
+def telaPagamento(request):
+    agendamentos = {}
+    All = Agendamento.objects.all()
+    paginator = Paginator(All, 5)
+    pages = request.GET.get('page')
+    agendamentos['db'] = paginator.get_page(pages)
+    return render(request, 'realizarPagamento.html', agendamentos)
+
+def pagar(request, pk):
+    pagamentos = {}
+    pagamentos['db'] = Pagamento.objects.get(pk=pk)
+    return render(request, 'pagar.html', pagamentos)
