@@ -17,15 +17,16 @@
                 <input class="btn btn-primary" type="submit" value="Cadastrar">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="mensagem">
+                    <strong><font color="red">{{message}}</font></strong>
+                    </div>
             </th>
         </tr>
     </table>
 </form>
-{% if messages %}
-{% for message in messages %}
-<div class="mensagem">
-    <strong><font color="red">{{message}}</font></strong>
-</div>
+
 {% endfor%}
 {% endif %}
 
