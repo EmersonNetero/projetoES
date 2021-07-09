@@ -233,7 +233,16 @@ def telaPagamento(request):
 
 def pagar(request, pk):
     pagamentos = {}
+    formPagamento = PagamentoForm(request.POST or None)
     pagamentos['db'] = Agendamento.objects.get(pk=pk)
+    formPagamento.data = pagamentos['db'].data_agendamento
+    formPagamento.valor = pagamentos['db'].valor
+    formPagamento.fk_paciente = pagamentos['db'].fk_paciente
+    formPagamento.fk_agendamento = pagamentos['db'].pk_agendamento
+    formPagamento.save()
+    formAgendamento = AgendamentoForm(request.POST or None, instace=pagamentos['db'])
+    formAgendamento.pago = True
+    formAgendamento.save()
     return render(request, 'pagar.html', pagamentos)
 ###
 def realizarProcedimento(request):
