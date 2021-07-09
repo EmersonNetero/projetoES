@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Pagamento
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Pagamento, AgenteSaude
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
 from django.contrib import messages
@@ -14,10 +14,23 @@ from django.core.paginator import Paginator
 def cria_user_django(info):
     user = User.objects.create_user(info['email'], info['email'], info['senha'])
     user.first_name = info['nome']
-    user.last_name = info['nome'] + 'sobrenome'
+    user.last_name = ' '
     user.save()
 
 ###
+
+def redirect_to_menu(user):
+    saude = AgenteSaude.objects.filter(email=user)
+    secretaria = AgenteSecretaria.objects.filter(email=user)
+    adm = AdministradorSistema.objects.filter(email=user)
+    if saude:
+        return redirect('agtSaude')
+    elif secretaria:
+        return redirect('agtSecretaria')
+    elif adm:
+        return redirect('admSistema')
+
+
 def login_user(request):
     if request.method == 'POST':
         email = request.POST['usuario']
@@ -25,7 +38,7 @@ def login_user(request):
         usuario = authenticate(request, username=email, password=senha)
         if usuario is not None:
             login(request, usuario)
-            return redirect('admSistema')
+            return redirect_to_menu(request.POST['usuario'])     
         else:
             messages.error(request, "email ou senha errado!!")
             return render(request, 'login.html')

@@ -25,7 +25,9 @@
            {% endblock %}
             {% block usuario %}
             <div class="usuario">
-
+                {% if user.is_authenticated %}
+                  <p>{{user.get_full_name}}</p>
+                {% endif %}
                 <br>
             <button class="btn primary" style = "background-color: #a0a0a0; padding: 0px; margin-bottom: 5px;"> 
               <a href="/logout"> Sair </a>
