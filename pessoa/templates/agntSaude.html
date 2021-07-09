@@ -18,15 +18,16 @@
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
                 {% if messages %}
                 {% for message in messages %}
-                <div class="mensagem">
+                <div class="mensagem" style = 'margin-top:35px'>
                     <strong><font color="red">{{message}}</font></strong>
                 </div>
+                {% endfor%}
+                {% endif %}
             </th>
         </tr>
     </table>
 </form>
 
-{% endfor%}
-{% endif %}
+
 
 {% endblock%}
