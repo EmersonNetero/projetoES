@@ -9,23 +9,25 @@
             <th scope="col">Paciente</th>
             <th scope="col">Data de Agendamento</th>
             <th scope="col">Profissional Responsavel</th>
-            <th scope="col">Pago</th>
+            <th scope="col">Valor</th>
             <th> </th>
             
         </tr>
     </thead>
     <tbody>
         {% for dbs in db %}
-            <tr>  
-                <th>{{dbs.fk_tipo_procedimento}}</th>
-                <th>{{dbs.fk_paciente}}</th>
-                <th>{{dbs.data_agendamento}}</th>
-                <th>{{dbs.fk_agente_saude}}</th>
-                <th>{{dbs.pago}}</th>
-                <th>
-                    <a href="/pagar/{{dbs.fk_tipo_procedimento}" class="btn primary">Pagar</a>
-                </th>
-            </tr>
+            {%if  not dbs.pago%}
+                <tr>  
+                    <th>{{dbs.fk_tipo_procedimento}}</th>
+                    <th>{{dbs.fk_paciente}}</th>
+                    <th>{{dbs.data_agendamento}}</th>
+                    <th>{{dbs.fk_agente_saude}}</th>
+                    <th>{{dbs.valor}}</th>
+                    <th>
+                        <a href="/pagar/{{dbs.pk_agendamento}}" class="btn primary">Pagar</a>
+                    </th>
+                </tr>
+            {% endif %}
         {% endfor %}
     </tbody>
 </table>

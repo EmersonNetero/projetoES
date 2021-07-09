@@ -233,7 +233,7 @@ def telaPagamento(request):
 
 def pagar(request, pk):
     pagamentos = {}
-    pagamentos['db'] = Pagamento.objects.get(pk=pk)
+    pagamentos['db'] = Agendamento.objects.get(pk=pk)
     return render(request, 'pagar.html', pagamentos)
 ###
 def realizarProcedimento(request):
@@ -250,3 +250,13 @@ def realizarProcedimento(request):
         formProcedimento = ProcedimentoForm()
     context['formProcedimento'] = formProcedimento
     return render(request, "procedimento.html", {'formProcedimento': formProcedimento})
+
+def viewCronogramaAgtSaude(request):
+    agendamentos = {}
+    All = Agendamento.objects.all()
+    Allagt = AgenteSaude.objects.all()
+    paginator = Paginator(All, 5)
+    pages = request.GET.get('page')
+    agendamentos['db'] = paginator.get_page(pages)
+    agendamentos['agts'] = Allagt
+    return render(request, 'cronogramAgt.html', agendamentos)

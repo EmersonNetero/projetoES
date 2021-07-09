@@ -11,12 +11,16 @@
         </tr>
     </thead>
     <tbody>
+        {% for agt in agts%}
+
         {% for dbs in db %}
-            <tr>
-                <th>{{dbs.fk_agente_saude}}</th>  
+            {% if agt.pk_agente_saude == dbs.fk_agente_saude %}
+            <tr>  
                 <th>{{dbs.fk_tipo_procedimento}}</th>
                 <th>{{dbs.fk_paciente}}</th>
             </tr>
+            {% endif %}
+        {% endfor %}
         {% endfor %}
     </tbody>
 </table>
