@@ -58,17 +58,17 @@ def home(request):
 ###
 # telas do cargos 
 def admSistema(request):
-    users = AdministradorSistema.objects.all()
-    return render(request, "menuAdmSistema.html", {'db': users})
+    aux = AdministradorSistema.objects.filter(email=request.user)
+    return render(request, "menuAdmSistema.html", {'db': aux})
 
 def agtSaude(request):
-    users = AgenteSaude.objects.all()
-    return render(request, "menuAgtSaude.html", {'db': users})
+    aux = AgenteSaude.objects.filter(email=request.user)
+    return render(request, "menuAgtSaude.html", {'db': aux})
 
 ###
 def agtSecretaria(request):
-    users = AgenteSecretaria.objects.all()
-    return render(request, "menuAgtSecretaria.html", {'db': users})
+    aux = AgenteSecretaria.objects.filter(email=request.user)
+    return render(request, "menuAgtSecretaria.html", {'db': aux})
 
 ###
 def cadastrarCargo(request):
