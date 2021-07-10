@@ -274,7 +274,7 @@ def viewCronogramaAgtSaude(request, nome):
     agendamentos = {}
     print(nome)
     if nome:
-        agendamentos['db'] = Agendamento.objects.filter(fk_agente_saude__nome = 'Emerson')
+        agendamentos['db'] = Agendamento.objects.filter(fk_agente_saude__nome = nome)
     else:
         All = Agendamento.objects.all()
         paginator = Paginator(All, 5)
