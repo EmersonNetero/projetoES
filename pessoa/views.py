@@ -58,7 +58,17 @@ def home(request):
 ###
 # telas do cargos 
 def admSistema(request):
-    return render(request, "menuAdmSistema.html")
+    users = AdministradorSistema.objects.all()
+    return render(request, "menuAdmSistema.html", {'db': users})
+
+def agtSaude(request):
+    users = AgenteSaude.objects.all()
+    return render(request, "menuAgtSaude.html", {'db': users})
+
+###
+def agtSecretaria(request):
+    users = AgenteSecretaria.objects.all()
+    return render(request, "menuAgtSecretaria.html", {'db': users})
 
 ###
 def cadastrarCargo(request):
@@ -200,12 +210,6 @@ def agendarConsultas(request):
     return render(request, "agendamento.html", {'formAgenda': formAgenda})
 
 ###
-def agtSaude(request):
-    return render(request, "menuAgtSaude.html")
-
-###
-def agtSecretaria(request):
-    return render(request, "menuAgtSecretaria.html")
 
 ###
 def viewAgendamento(request):
