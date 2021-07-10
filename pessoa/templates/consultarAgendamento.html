@@ -2,6 +2,11 @@
 
 {% block content %}
 <h3>Consultar Agendamento</h3>
+<div class="col-8 m-auto pt-3 pb-2 text-center">
+    <form action="" method="GET">
+        <input type="text" id="busca" name="busca" class="form-control" placeholder="Buscar Paciente...">
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -24,6 +29,16 @@
         {% endfor %}
     </tbody>
 </table>
+<div class="pagination col-8 m-auto pt-5 pb-2 text-center">
+    {% if db.has_previous %}
+        <a href="?page={{db.previous_page_number}}"> < </a>
+    {% endif %}
 
+    {{db.number}}
+
+    {% if db.has_next %}
+        <a href="?page={{db.next_page_number}}"> > </a>
+    {% endif %}
+</div>
 
 {% endblock%}

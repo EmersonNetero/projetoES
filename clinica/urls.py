@@ -25,6 +25,6 @@ urlpatterns = [
     path('realProcedimento/', realizarProcedimento),
     path('cronograma/', viewCronograma),
     path('telapagamento/', telaPagamento),
-    path('pagar/<int:pk>/', pagar),
-    path('cronogramaAgtSaude/', viewCronogramaAgtSaude)
+    path('pagar/<int:pk>/', pagar), 
+    path('cronogramaAgtSaude/<slug:nome>', viewCronogramaAgtSaude)
 ]

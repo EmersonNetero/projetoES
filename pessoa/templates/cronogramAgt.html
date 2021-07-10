@@ -2,25 +2,20 @@
 
 {% block content %}
 <h3>Cronograma de Serviços</h3>
+<h10>Agente de Saude: {{user.first_name}}</h10>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Agente de Saude</th>
             <th scope="col">Procedimento</th>
             <th scope="col">Paciente</th>
         </tr>
     </thead>
     <tbody>
-        {% for agt in agts%}
-
         {% for dbs in db %}
-            {% if agt.pk_agente_saude == dbs.fk_agente_saude %}
-            <tr>  
+            <tr>
                 <th>{{dbs.fk_tipo_procedimento}}</th>
                 <th>{{dbs.fk_paciente}}</th>
             </tr>
-            {% endif %}
-        {% endfor %}
         {% endfor %}
     </tbody>
 </table>

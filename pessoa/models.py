@@ -168,7 +168,7 @@ class Agendamento(models.Model):
         db_table = 'agendamento'
 
     def __str__(self):
-        return  self.fk_paciente
+        return f'{self.fk_paciente}'
 
 
 ###

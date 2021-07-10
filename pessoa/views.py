@@ -1,9 +1,10 @@
 #from conda.base import context
+from django.db.models.fields.related import ForeignKey
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Pagamento, AgenteSaude
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
 from django.contrib import messages
@@ -209,10 +210,15 @@ def agtSecretaria(request):
 ###
 def viewAgendamento(request):
     agendamentos = {}
-    All = Agendamento.objects.all()
-    paginator = Paginator(All, 5)
-    pages = request.GET.get('page')
-    agendamentos['db'] = paginator.get_page(pages)
+    
+    search = request.GET.get('busca')
+    if search:
+        agendamentos['db'] = Agendamento.objects.filter(fk_paciente__nome = search)
+    else:
+        All = Agendamento.objects.all()
+        paginator = Paginator(All, 5)
+        pages = request.GET.get('page')
+        agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'consultarAgendamento.html', agendamentos)
 
 def viewCronograma(request):
@@ -260,12 +266,14 @@ def realizarProcedimento(request):
     context['formProcedimento'] = formProcedimento
     return render(request, "procedimento.html", {'formProcedimento': formProcedimento})
 
-def viewCronogramaAgtSaude(request):
+def viewCronogramaAgtSaude(request, nome):
     agendamentos = {}
-    All = Agendamento.objects.all()
-    Allagt = AgenteSaude.objects.all()
-    paginator = Paginator(All, 5)
-    pages = request.GET.get('page')
-    agendamentos['db'] = paginator.get_page(pages)
-    agendamentos['agts'] = Allagt
+    print(nome)
+    if nome:
+        agendamentos['db'] = Agendamento.objects.filter(fk_agente_saude__nome = 'Emerson')
+    else:
+        All = Agendamento.objects.all()
+        paginator = Paginator(All, 5)
+        pages = request.GET.get('page')
+        agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'cronogramAgt.html', agendamentos)
