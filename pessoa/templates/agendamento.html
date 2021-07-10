@@ -20,25 +20,48 @@
             <th style="position: absolute">
                 <input class="btn btn-primary" type="submit" value="Realizar Agendamento">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
+                <a href="/consultarAgendamento" class="btn btn-primary">Gerar PDF</a>
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="mensagem" style = 'margin-top:35px'>
+                    <strong><font color="red">{{message}}</font></strong>
+                </div>
+                {% endfor %}
+                {% endif %}
             </th>
         </tr>
     </table>
-
+    <script>
+    //<a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">
+    function GeraComprovante() {
 
         
+        //var minhaTabela = document.getElementById('tabela').innerHTML;
+        
+        //var style = "<style>";
+        //style = style + "table {width: 100%;font: 20px Calibri;}";
+        //style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        //style = style + "padding: 2px 3px;text-align: center;}";
+        //style = style + "</style>";
+
+
+        var win = window.open('', '', 'height=1000,width=1000');
+
+        win.document.write('<html><head>'); 
+        win.document.write('<h1 style = "text-align: center;">Comprovante de Agendamento</h1>');
+        win.document.write('<hr> <br>')  // <title> CABEÇALHO DO PDF.
+        //win.document.write(style);                                     // INCLUI UM ESTILO NA TAB HEAD
+        win.document.write('</head>');
+        win.document.write('<body>');
+        //win.document.write(minhaTabela);                          // O CONTEUDO DA TABELA DENTRO DA TAG BODY
+        win.document.write('</body></html>');
+        win.document.close();  	                                         // FECHA A JANELA
+        win.print();   // IMPRIME O CONTEUDO
+    }
+    </script>
+        
 </form>
-
-{% if messages %}
-{% for message in messages %}
-    <div class="mensagem">
-        <strong><font color="red">{{message}}</font></strong>
-    </div>
-
-{% endfor %}
-{% endif %}
-
-
 
 
 {% endblock %}
