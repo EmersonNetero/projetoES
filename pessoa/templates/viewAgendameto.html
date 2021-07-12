@@ -2,30 +2,31 @@
 
 {% block content %}
 <h3>Ver Agendamento</h3>
-<table class="table" id="Agendamento">
+<div id="Agendamento">
+    <table class="table" style = "text-align: center; border: 2px solid black" >
         <tr>
-            <th scope="col">Procedimento</th>
-            <th scope="col">Paciente</th>
-            <th scope="col">Data de Agendamento</th>
-            <th scope="col">Profissional Responsavel</th>
-            <th scope="col">Valor</th>
+            <th scope="col" style = "border: 2px solid black">Procedimento </th>
+            <th scope="col" style = "border: 2px solid black">Paciente </th>
+            <th scope="col" style = "border: 2px solid black">Data de Agendamento </th>
+            <th scope="col" style = "border: 2px solid black">Profissional Responsavel </th>
+            <th scope="col" style = "border: 2px solid black">Valor </th>
         </tr>
             <tr>  
-                <th>{{db.fk_tipo_procedimento}}</th>
-                <th>{{db.fk_paciente}}</th>
-                <th>{{db.data_agendamento}}</th>
-                <th>{{db.fk_agente_saude}}</th>
-                <th>R$ {{db.valor}}</th>
+                <th style = "border: 2px solid black">{{db.fk_tipo_procedimento}}</th>
+                <th style = "border: 2px solid black">{{db.fk_paciente}}</th>
+                <th style = "border: 2px solid black">{{db.data_agendamento}}</th>
+                <th style = "border: 2px solid black">{{db.fk_agente_saude}}</th>
+                <th style = "border: 2px solid black">R$ {{db.valor}}</th>
             </tr>
 
-</table>
-<h10>Observação: {{db.observacao}}</h10> <br>
+    </table>
+    <h3>Observação: {{db.observacao}}</h3> <br>
+</div>
 <a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Gerar Comprovante de Agendamento</a>
 
 <script>
     function GeraComprovante() {
-
-
+        
         var minhaTabela = document.getElementById('Agendamento').innerHTML;
 
         var style = "<style>";
@@ -40,7 +41,6 @@
         win.document.write('<html><head>'); 
         win.document.write('<h1 style = "text-align: center;">Comprovante de Agendamento</h1>');
         win.document.write('<hr> <br>')  // <title> CABEÇALHO DO PDF.
-                                           // INCLUI UM ESTILO NA TAB HEAD
         win.document.write('</head>');
         win.document.write('<body>');
         win.document.write(minhaTabela);
