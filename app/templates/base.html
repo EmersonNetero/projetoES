@@ -20,9 +20,15 @@
         <ul class="sidebar-nav">
 
             {% block foto %}
-            <img class="foto" src="{% static '/fotos/man.png' %}" alt="" width="150" height="75"
-                       class="d-inline-block align-text-top" align="center">
-           {% endblock %}
+            {% if user.is_authenticated %}
+
+              <img class="foto" src="/static/{{db.fotoPerfil}}" alt="" width="150" height="75"
+                         class="d-inline-block align-text-top" align="center">
+            {% else %}
+              <img class="foto" src="{% static '/fotos/man.png' %}" alt="" width="150" height="75"
+                         class="d-inline-block align-text-top" align="center">
+            {% endif%}
+            {% endblock %}
             {% block usuario %}
             <div class="usuario">
                 {% if user.is_authenticated %}

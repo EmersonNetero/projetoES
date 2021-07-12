@@ -1,18 +1,5 @@
 
 {% extends "base.html" %}
-{% load static %}
-{% block foto %}
-
-    {% if db.email == user.username %}
-        <img class="foto" src="/static/{{db.fotoPerfil}}" alt='foto?' width="150" height="75"
-        class="d-inline-block align-text-top" align="center">
-    {% else %}
-        <img class="foto" src="{% static '/fotos/man.png' %}" alt="" width="150" height="75"
-        class="d-inline-block align-text-top" align="center">
-    {% endif %}
-    
-
-{% endblock %}
 {% block content%}
 {% if user.is_authenticated %}
 <h3>ADMINISTRADOR DO SISTEMA</h3>
