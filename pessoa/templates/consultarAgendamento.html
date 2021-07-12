@@ -19,12 +19,16 @@
     </thead>
     <tbody>
         {% for dbs in db %}
-            <tr>  
+            <tr>
+                <th>{{dbs.pk_agendamento}}</th>  
                 <th>{{dbs.fk_tipo_procedimento}}</th>
                 <th>{{dbs.fk_paciente}}</th>
                 <th>{{dbs.data_agendamento}}</th>
                 <th>{{dbs.fk_agente_saude}}</th>
                 <th>R$ {{dbs.valor}}</th>
+                <th>
+                    <a href="/verAgendamento/{{dbs.pk_agendamento}}" class="btn primary">Ver</a>
+                </th>
             </tr>
         {% endfor %}
     </tbody>

@@ -220,7 +220,7 @@ def viewAgendamento(request):
         agendamentos['db'] = Agendamento.objects.filter(fk_paciente__nome = search)
     else:
         All = Agendamento.objects.all()
-        paginator = Paginator(All, 5)
+        paginator = Paginator(All, 10)
         pages = request.GET.get('page')
         agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'consultarAgendamento.html', agendamentos)
@@ -228,7 +228,7 @@ def viewAgendamento(request):
 def viewCronograma(request):
     agendamentos = {}
     All = Agendamento.objects.all()
-    paginator = Paginator(All, 5)
+    paginator = Paginator(All, 10)
     pages = request.GET.get('page')
     agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'cronograma.html', agendamentos)
@@ -243,16 +243,7 @@ def telaPagamento(request):
 
 def pagar(request, pk):
     pagamentos = {}
-    formPagamento = PagamentoForm(request.POST or None)
-    pagamentos['db'] = Agendamento.objects.get(pk=pk)
-    formPagamento.data = pagamentos['db'].data_agendamento
-    formPagamento.valor = pagamentos['db'].valor
-    formPagamento.fk_paciente = pagamentos['db'].fk_paciente
-    formPagamento.fk_agendamento = pagamentos['db'].pk_agendamento
-    formPagamento.save()
-    formAgendamento = AgendamentoForm(request.POST or None, instace=pagamentos['db'])
-    formAgendamento.pago = True
-    formAgendamento.save()
+    pagamentos['db'] = Agendamento.objects.get(pk_agendamento=pk)
     return render(request, 'pagar.html', pagamentos)
 ###
 def realizarProcedimento(request):
@@ -281,3 +272,8 @@ def viewCronogramaAgtSaude(request, nome):
         pages = request.GET.get('page')
         agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'cronogramAgt.html', agendamentos)
+
+def verAgendamento(request, pk):
+    agendamento = {}
+    agendamento['db'] = Agendamento.objects.get(pk_agendamento=pk)
+    return render(request, 'viewAgendameto.html', agendamento)

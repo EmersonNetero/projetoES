@@ -1,26 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>Realizar Pagamento</h3>
-<table class="table" id="Pagamento">
-    <thead>
+<h3>Ver Agendamento</h3>
+<table class="table" id="Agendamento">
         <tr>
-            <th>Paciente</th>
-            <th>Valor</th>
+            <th scope="col">Procedimento</th>
+            <th scope="col">Paciente</th>
+            <th scope="col">Data de Agendamento</th>
+            <th scope="col">Profissional Responsavel</th>
+            <th scope="col">Valor</th>
         </tr>
-    </thead>
-    <tbody>
             <tr>  
+                <th>{{db.fk_tipo_procedimento}}</th>
                 <th>{{db.fk_paciente}}</th>
+                <th>{{db.data_agendamento}}</th>
+                <th>{{db.fk_agente_saude}}</th>
                 <th>R$ {{db.valor}}</th>
             </tr>
-    </tbody>
+
 </table>
-<a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Pagar</a>
+<h10>Observação: {{db.observacao}}</h10> <br>
+<a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Gerar Comprovante de Agendamento</a>
 
 <script>
     function GeraComprovante() {
-        var minhaTabela = document.getElementById('Pagamento').innerHTML;
+
+
+        var minhaTabela = document.getElementById('Agendamento').innerHTML;
 
         var style = "<style>";
         style = style + "table {width: 100%;font: 20px Calibri;}";
@@ -44,5 +50,4 @@
         win.print();   // IMPRIME O CONTEUDO
     }
     </script>
-
 {% endblock%}
