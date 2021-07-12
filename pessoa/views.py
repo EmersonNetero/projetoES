@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
 from django.contrib import messages
@@ -73,6 +73,7 @@ def agtSecretaria(request):
 ###
 def cadastrarCargo(request):
     context = {}
+    user = Profissao.objects.filter(email=request.user)
     f = CargoForm()
     head = 1
     if request.method == "POST":
@@ -81,15 +82,16 @@ def cadastrarCargo(request):
             formCargo.save()
             context['form'] = f
             messages.info(request, "Cargo Cadastrado com Sucesso!")
-            return render(request, "cadDiverso.html", {'formG': f, 'head': head})
+            return render(request, "cadDiverso.html", {'formG': f, 'head': head, 'db': user[0]})
     else:
         formCargo = CargoForm()
     context['form'] = formCargo
-    return render(request, "cadDiverso.html", {'formG': formCargo, 'head': head})
+    return render(request, "cadDiverso.html", {'formG': formCargo, 'head': head, 'db': user[0]})
 
 ###
 def cadastrarTipoProcedimento(request):
     context = {}
+    user = Profissao.objects.filter(email=request.user)
     f = TipoProcedimentoForm
     head = 2
     if request.method == "POST":
@@ -98,16 +100,17 @@ def cadastrarTipoProcedimento(request):
             formTipProcedimento.save()
             context['form'] = f
             messages.info(request, "Tipo de Procediemnto Cadastrado com Sucesso!")
-            return render(request, "cadDiverso.html", {'formTp': f, 'head': head})
+            return render(request, "cadDiverso.html", {'formTp': f, 'head': head, 'db':user[0]})
     else:
         formTipProcedimento = TipoProcedimentoForm()
     context['form'] = formTipProcedimento
-    return render(request, "cadDiverso.html", {'formTp': formTipProcedimento, 'head': head})
+    return render(request, "cadDiverso.html", {'formTp': formTipProcedimento, 'head': head, 'db':user[0]})
 
 
 ###
 def cadastrarPaciente(request):
     context = {}
+    user = Profissao.objects.filter(email=request.user)
     if request.method == 'POST':
         formP = PacienteForm(request.POST)
         formE = EnderecoForm(request.POST)
@@ -121,10 +124,11 @@ def cadastrarPaciente(request):
     else:
         formP = PacienteForm()
         formE = EnderecoForm()
-    return render(request, "paciente.html", {'formP': formP, 'formE': formE})
+    return render(request, "paciente.html", {'formP': formP, 'formE': formE, 'db': user[0]})
 
 ###
 def cadastraAgntSecretaria(request):
+    user = Profissao.objects.filter(email=request.user)
     if request.method == "POST":
         formS = AgenteSecretariaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
@@ -139,10 +143,11 @@ def cadastraAgntSecretaria(request):
     else:
         formS = AgenteSecretariaForm()
         formE = EnderecoForm()
-    return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE})
+    return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE, 'db':user[0]})
 
 ###
 def cadastraAgntSaude(request):
+    user = Profissao.objects.filter(email=request.user)
     if request.method == "POST":
         saude = AgenteSaudeForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
@@ -157,11 +162,12 @@ def cadastraAgntSaude(request):
     else:
         saude = AgenteSaudeForm()
         formE = EnderecoForm()
-    return render(request, "agntSaude.html", {'saude': saude, 'formE': formE})
+    return render(request, "agntSaude.html", {'saude': saude, 'formE': formE, 'db':user[0]})
 
 ###
 def cadastrarEndereco(request):
     context = {}
+    user = Profissao.objects.filter(email=request.user)
     f = EnderecoForm
     head = 3
     if request.method == "POST":
@@ -170,14 +176,15 @@ def cadastrarEndereco(request):
             formEndereco.save()
             context['form'] = f
             messages.info(request, "Endereço Cadastrado com Sucesso!")
-            return render(request, "cadDiverso.html", {'formEn': f, 'head': head})
+            return render(request, "cadDiverso.html", {'formEn': f, 'head': head, 'db':user[0]})
     else:
         formEndereco = EnderecoForm()
     context['form'] = formEndereco
-    return render(request, "cadDiverso.html", {'formEn': formEndereco, 'head': head})
+    return render(request, "cadDiverso.html", {'formEn': formEndereco, 'head': head, 'db':user[0]})
 
 ###
 def cadAdmSistema(request):
+    user = Profissao.objects.filter(email=request.user)
     if request.method == "POST":
         adm = AdministradorSistemaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
@@ -192,11 +199,12 @@ def cadAdmSistema(request):
     else:
         adm = AdministradorSistemaForm()
         formE = EnderecoForm()
-    return render(request, "cadastroPessoa.html", {'adm': adm, 'formE': formE})
+    return render(request, "cadastroPessoa.html", {'adm': adm, 'formE': formE, 'db':user[0]})
 
 ###
 def agendarConsultas(request):
     context = {}
+    user = Profissao.objects.filter(email=request.user)
     f = AgendamentoForm()
     if request.method == 'POST':
         formAgenda = AgendamentoForm(request.POST)
@@ -207,50 +215,58 @@ def agendarConsultas(request):
             return HttpResponseRedirect("/agendamento")
     else:
         formAgenda = AgendamentoForm()
-    return render(request, "agendamento.html", {'formAgenda': formAgenda})
+    return render(request, "agendamento.html", {'formAgenda': formAgenda, 'db':user[0]})
 
 ###
 
 ###
 def viewAgendamento(request):
     agendamentos = {}
-    
+    user = Profissao.objects.filter(email=request.user)
+    agendamentos['db'] = user[0]
     search = request.GET.get('busca')
     if search:
-        agendamentos['db'] = Agendamento.objects.filter(fk_paciente__nome = search)
+        agendamentos['db2'] = Agendamento.objects.filter(fk_paciente__nome = search)
     else:
         All = Agendamento.objects.all()
         paginator = Paginator(All, 10)
         pages = request.GET.get('page')
-        agendamentos['db'] = paginator.get_page(pages)
+        agendamentos['db2'] = paginator.get_page(pages)
     return render(request, 'consultarAgendamento.html', agendamentos)
 
 def viewCronograma(request):
+    user = Profissao.objects.filter(email=request.user)
     agendamentos = {}
+    agendamentos['db'] = user[0]
     All = Agendamento.objects.all()
     paginator = Paginator(All, 10)
     pages = request.GET.get('page')
-    agendamentos['db'] = paginator.get_page(pages)
+    agendamentos['db2'] = paginator.get_page(pages)
     return render(request, 'cronograma.html', agendamentos)
 
 def telaPagamento(request):
     agendamentos = {}
+    user = Profissao.objects.filter(email=request.user)
+    agendamentos['db'] = user[0]
     All = Agendamento.objects.all()
     paginator = Paginator(All, 10)
     pages = request.GET.get('page')
-    agendamentos['db'] = paginator.get_page(pages)
+    agendamentos['db2'] = paginator.get_page(pages)
     return render(request, 'realizarPagamento.html', agendamentos)
 
 def pagar(request, pk):
     pagamentos = {}
+    user = Profissao.objects.filter(email=request.user)
+    pagamentos['db'] = user[0]
     pago = Agendamento.objects.get(pk_agendamento=pk)
     pago.pago = True
     pago.save()
-    pagamentos['db'] = Agendamento.objects.get(pk_agendamento=pk)
+    pagamentos['db2'] = Agendamento.objects.get(pk_agendamento=pk)
     return render(request, 'pagar.html', pagamentos)
 ###
 def realizarProcedimento(request):
     context = {}
+    user = Profissao.objects.filter(email=request.user)
     f = ProcedimentoForm
     if request.method == "POST":
         formProcedimento = ProcedimentoForm(request.POST)
@@ -258,25 +274,28 @@ def realizarProcedimento(request):
             formProcedimento.save()
             context['formProcedimento'] = f
             messages.info(request, "Procedimento Realizado com Sucesso!")
-            return render(request, "procedimento.html", {'formProcedimento': formProcedimento})
+            return render(request, "procedimento.html", {'formProcedimento': formProcedimento, 'db':user[0]})
     else:
         formProcedimento = ProcedimentoForm()
     context['formProcedimento'] = formProcedimento
-    return render(request, "procedimento.html", {'formProcedimento': formProcedimento})
+    return render(request, "procedimento.html", {'formProcedimento': formProcedimento, 'db':user[0]})
 
 def viewCronogramaAgtSaude(request, nome):
     agendamentos = {}
-    print(nome)
+    user = Profissao.objects.filter(email=request.user)
+    agendamentos['db'] = user[0]
     if nome:
-        agendamentos['db'] = Agendamento.objects.filter(fk_agente_saude__nome = nome)
+        agendamentos['db2'] = Agendamento.objects.filter(fk_agente_saude__nome = nome)
     else:
         All = Agendamento.objects.all()
         paginator = Paginator(All, 5)
         pages = request.GET.get('page')
-        agendamentos['db'] = paginator.get_page(pages)
+        agendamentos['db2'] = paginator.get_page(pages)
     return render(request, 'cronogramAgt.html', agendamentos)
 
 def verAgendamento(request, pk):
     agendamento = {}
-    agendamento['db'] = Agendamento.objects.get(pk_agendamento=pk)
+    user = Profissao.objects.filter(email=request.user)
+    agendamento['db'] = user[0]
+    agendamento['db2'] = Agendamento.objects.get(pk_agendamento=pk)
     return render(request, 'viewAgendameto.html', agendamento)
