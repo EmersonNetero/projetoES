@@ -20,7 +20,7 @@
         <ul class="sidebar-nav">
 
             {% block foto %}
-            {% if user.is_authenticated %}
+            {% if db.fotoPerfil %}
 
               <img class="foto" src="/static/{{db.fotoPerfil}}" alt="" width="150" height="75"
                          class="d-inline-block align-text-top" align="center">

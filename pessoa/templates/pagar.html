@@ -2,24 +2,31 @@
 
 {% block content %}
 <h3>Realizar Pagamento</h3>
-<table class="table" id="Pagamento">
-    <thead>
-        <tr>
-            <th>Paciente</th>
-            <th>Valor</th>
-            <th>Situação</th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr> 
-                <th>{{db2.fk_paciente}}</th>
-                <th>R$ {{db2.valor}}</th>
-                {% if db.pago%}
-                <th>Está Pago</th>
-                {%endif%}
+<div id="Pagamento">
+    <table class="table" >
+        <thead>
+            <tr>
+                <th style = "border: 2px solid black" >Procedimento</th>
+                <th style = "border: 2px solid black" >Paciente</th>
+                <th style = "border: 2px solid black" >Valor</th>
+                <th style = "border: 2px solid black" >Situação</th>
             </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+                <tr>
+                    <th style = "border: 2px solid black">{{db2.fk_tipo_procedimento}}</th> 
+                    <th style = "border: 2px solid black">{{db2.fk_paciente}}</th>
+                    <th style = "border: 2px solid black">R$ {{db2.valor}}</th>
+                    {% if db2.pago%}
+                    <th style = "border: 2px solid black">Está Pago</th>
+                    {%else%}
+                    <th style = "border: 2px solid black">Pendente</th>
+                    {%endif%}                
+                </tr>
+        </tbody>
+    </table>
+</div>  
+
 <a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Comprovante</a>
 
 <script>
@@ -31,21 +38,17 @@
         style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
         style = style + "padding: 2px 3px;text-align: center;}";
         style = style + "</style>";
-
-
         var win = window.open('', '', 'height=1000,width=1000');
-
         win.document.write('<html><head>'); 
-        win.document.write('<h1 style = "text-align: center;">Comprovante de Agendamento</h1>');
-        win.document.write('<hr> <br>')  // <title> CABEÇALHO DO PDF.
-                                           // INCLUI UM ESTILO NA TAB HEAD
+        win.document.write('<h1 style = "text-align: center;">Comprovante de Pagamento</h1>');
+        win.document.write('<hr> <br>')  
         win.document.write('</head>');
         win.document.write('<body>');
         win.document.write(minhaTabela);
-        win.document.write(style);                            // O CONTEUDO DA TABELA DENTRO DA TAG BODY
+        win.document.write(style);
         win.document.write('</body></html>');
-        win.document.close();                                               // FECHA A JANELA
-        win.print();   // IMPRIME O CONTEUDO
+        win.document.close();
+        win.print();
     }
     </script>
 

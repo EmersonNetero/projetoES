@@ -10,6 +10,7 @@
             <th scope="col" style = "border: 2px solid black">Data de Agendamento </th>
             <th scope="col" style = "border: 2px solid black">Profissional Responsavel </th>
             <th scope="col" style = "border: 2px solid black">Valor </th>
+            <th style = "border: 2px solid black" >Situação</th>
         </tr>
             <tr>  
                 <th style = "border: 2px solid black">{{db2.fk_tipo_procedimento}}</th>
@@ -17,10 +18,15 @@
                 <th style = "border: 2px solid black">{{db2.data_agendamento}}</th>
                 <th style = "border: 2px solid black">{{db2.fk_agente_saude}}</th>
                 <th style = "border: 2px solid black">R$ {{db2.valor}}</th>
+                {% if db2.pago%}
+                <th style = "border: 2px solid black">Está Pago</th>
+                {%else%}
+                <th style = "border: 2px solid black">Pendente</th>
+                {%endif%} 
             </tr>
 
     </table>
-    <h3>Observação: {{db.observacao}}</h3> <br>
+    <h3>Observação: {{db2.observacao}}</h3> <br>
 </div>
 <a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Gerar Comprovante de Agendamento</a>
 
@@ -45,7 +51,10 @@
         win.document.write('<body>');
         win.document.write(minhaTabela);
         win.document.write(style);                            // O CONTEUDO DA TABELA DENTRO DA TAG BODY
-        win.document.write('</body></html>');
+        win.document.write('</body>');
+        win.document.write('<footer style = "text-align: center;" >');
+        win.document.write('Centro Medico UFS');
+        win.document.write('</footer></html>');
         win.document.close();                                               // FECHA A JANELA
         win.print();   // IMPRIME O CONTEUDO
     }
