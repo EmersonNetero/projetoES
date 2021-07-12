@@ -46,17 +46,17 @@
 
         win.document.write('<html><head>'); 
         win.document.write('<h1 style = "text-align: center;">Comprovante de Agendamento</h1>');
-        win.document.write('<hr> <br>')  // <title> CABEÇALHO DO PDF.
+        win.document.write('<hr> <br>') 
         win.document.write('</head>');
         win.document.write('<body>');
         win.document.write(minhaTabela);
-        win.document.write(style);                            // O CONTEUDO DA TABELA DENTRO DA TAG BODY
+        win.document.write(style);
         win.document.write('</body>');
         win.document.write('<footer style = "text-align: center;" >');
         win.document.write('Centro Medico UFS');
         win.document.write('</footer></html>');
-        win.document.close();                                               // FECHA A JANELA
-        win.print();   // IMPRIME O CONTEUDO
+        win.document.close();
+        win.print();
     }
     </script>
 {% endblock%}
