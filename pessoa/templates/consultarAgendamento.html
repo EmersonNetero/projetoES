@@ -15,17 +15,18 @@
             <th scope="col">Data de Agendamento</th>
             <th scope="col">Profissional Responsavel</th>
             <th scope="col">Valor</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {% for dbs in db %}
-            <tr>
-                <th>{{dbs.pk_agendamento}}</th>  
+            <tr> 
                 <th>{{dbs.fk_tipo_procedimento}}</th>
                 <th>{{dbs.fk_paciente}}</th>
                 <th>{{dbs.data_agendamento}}</th>
                 <th>{{dbs.fk_agente_saude}}</th>
                 <th>R$ {{dbs.valor}}</th>
+                <th>{{dbs.pago}}</th>
                 <th>
                     <a href="/verAgendamento/{{dbs.pk_agendamento}}" class="btn primary">Ver</a>
                 </th>
