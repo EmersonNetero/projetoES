@@ -236,13 +236,16 @@ def viewCronograma(request):
 def telaPagamento(request):
     agendamentos = {}
     All = Agendamento.objects.all()
-    paginator = Paginator(All, 5)
+    paginator = Paginator(All, 10)
     pages = request.GET.get('page')
     agendamentos['db'] = paginator.get_page(pages)
     return render(request, 'realizarPagamento.html', agendamentos)
 
 def pagar(request, pk):
     pagamentos = {}
+    pago = Agendamento.objects.get(pk_agendamento=pk)
+    pago.pago = True
+    pago.save()
     pagamentos['db'] = Agendamento.objects.get(pk_agendamento=pk)
     return render(request, 'pagar.html', pagamentos)
 ###

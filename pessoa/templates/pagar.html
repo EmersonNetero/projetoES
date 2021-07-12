@@ -7,16 +7,20 @@
         <tr>
             <th>Paciente</th>
             <th>Valor</th>
+            <th>Situação</th>
         </tr>
     </thead>
     <tbody>
-            <tr>  
+            <tr> 
                 <th>{{db.fk_paciente}}</th>
                 <th>R$ {{db.valor}}</th>
+                {% if db.pago%}
+                <th>Está Pago</th>
+                {%endif%}
             </tr>
     </tbody>
 </table>
-<a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Pagar</a>
+<a class="btn btn-primary" type="button"  value="Gerar PDF" onclick="GeraComprovante()">Comprovante</a>
 
 <script>
     function GeraComprovante() {
