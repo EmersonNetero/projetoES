@@ -226,9 +226,9 @@ def viewAgendamento(request):
     agendamentos['db'] = user[0]
     search = request.GET.get('busca')
     if search:
-        agendamentos['db2'] = Agendamento.objects.filter(fk_paciente__nome = search)
+        agendamentos['db2'] = Agendamento.objects.filter(fk_paciente__nome = search).order_by('data_agendamento').reverse()
     else:
-        All = Agendamento.objects.all()
+        All = Agendamento.objects.all().order_by('data_agendamento').reverse()
         paginator = Paginator(All, 10)
         pages = request.GET.get('page')
         agendamentos['db2'] = paginator.get_page(pages)
