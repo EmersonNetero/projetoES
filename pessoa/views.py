@@ -323,21 +323,21 @@ def edit(request, cpf):
     data['db'] = user[0]
     if saude:
         data['db2'] = AgenteSaude.objects.get(cpf=cpf)
-        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
         data['saude'] = AgenteSaudeForm(instance=data['db2'])
         data['formE'] = EnderecoForm(instance=endereco)
         return render(request, 'agntSaude.html', data)
 
     elif secretaria:
         data['db2'] = AgenteSecretaria.objects.get(cpf=cpf)
-        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
         data['formE'] = EnderecoForm(instance=endereco)
         data['formS'] = AgenteSecretariaForm(instance=data['db2'])
         return render(request, 'agntSecretaria.html', data)
 
     elif adm:
         data['db2'] =AdministradorSistema.objects.get(cpf=cpf)
-        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
         data['formE'] = EnderecoForm(instance=endereco)
         data['adm'] = AdministradorSistemaForm(instance=data['db2'])
         return render(request, 'cadastroPessoa.html', data)
@@ -352,7 +352,7 @@ def update(request, cpf):
     data['db'] = user[0]
     if saude:
         data['db2'] =AgenteSaude.objects.get(cpf=cpf)
-        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
         form = AgenteSaudeForm(request.POST or None, instance=data['db2'])
         formE = EnderecoForm(request.POST or None, instance=endereco)
         if form.is_valid() and formE.is_valid():
@@ -362,7 +362,7 @@ def update(request, cpf):
 
     elif secretaria:
         data['db2'] =AgenteSecretaria.objects.get(cpf=cpf)
-        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
         form = AgenteSecretariaForm(request.POST or None, instance=data['db2'])
         formE = EnderecoForm(request.POST or None, instance=endereco)
         if form.is_valid() and formE.is_valid():
@@ -372,7 +372,7 @@ def update(request, cpf):
       
     elif adm:
         data['db2'] = AdministradorSistema.objects.get(cpf=cpf)
-        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
         form = AdministradorSistemaForm(request.POST or None, instance=data['db2'])
         formE = EnderecoForm(request.POST or None, instance=endereco)
         if form.is_valid() and formE.is_valid():
