@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>TODOS USUÁRIOS</h3>
+<div id="Agendamento">
+    <div class="col-8 m-auto pt-3 pb-2 text-center">
+        <form action="" method="GET">
+            <input type="text" id="busca" name="busca" class="form-control" placeholder="Buscar Usuário...">
+        </form>
+    </div>
+    <table class="table" style = "text-align: center;" >
+        <tr>
+            <th scope="col">Perfil </th>
+            <th scope="col" >Nome </th>
+            <th scope="col">Cargo</th>
+           
+        </tr>
+            {% for usuario in db2 %}
+            <tr>  
+                <th >
+                     {% if usuario.fotoPerfil %}
+                     <img src="/static/{{usuario.fotoPerfil}}" alt="foto de perfil" width="150" height="75"
+                     class="d-inline-block align-text-top" align="center">
+                     {%else%}          
+                     <img class="foto" src="/static/fotos/man.png" alt="" width="150" height="75"
+                    class="d-inline-block align-text-top" align="center"> 
+                    {% endif %}
+                </th>
+                <th>{{usuario.nome}}</th>
+                <th>{{usuario.fk_cargo}}</th>
+                <td><a href="/edit/{{usuario.cpf}}/" class="btn btn-primary">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+</div>
+{% endblock%}
