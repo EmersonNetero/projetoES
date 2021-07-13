@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao, Endereco
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
 from django.contrib import messages
@@ -299,3 +299,84 @@ def verAgendamento(request, pk):
     agendamento['db'] = user[0]
     agendamento['db2'] = Agendamento.objects.get(pk_agendamento=pk)
     return render(request, 'viewAgendameto.html', agendamento)
+
+
+def viewUsuarios(request):
+    user = Profissao.objects.filter(email=request.user)
+    usuarios = Profissao.objects.all()
+    data = {}
+    data['db'] = user[0]
+    search = request.GET.get('busca')
+    if search:
+        data['db2'] = Profissao.objects.filter(nome=search)
+    else:
+        data['db2'] = usuarios
+    return render(request, 'usuarios.html', data)
+
+
+def edit(request, cpf):
+    user = Profissao.objects.filter(email=request.user)
+    data = {}
+    saude = AgenteSaude.objects.filter(cpf=cpf)
+    secretaria = AgenteSecretaria.objects.filter(cpf=cpf)
+    adm = AdministradorSistema.objects.filter(cpf=cpf)
+    data['db'] = user[0]
+    if saude:
+        data['db2'] = AgenteSaude.objects.get(cpf=cpf)
+        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        data['saude'] = AgenteSaudeForm(instance=data['db2'])
+        data['formE'] = EnderecoForm(instance=endereco)
+        return render(request, 'agntSaude.html', data)
+
+    elif secretaria:
+        data['db2'] = AgenteSecretaria.objects.get(cpf=cpf)
+        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        data['formE'] = EnderecoForm(instance=endereco)
+        data['formS'] = AgenteSecretariaForm(instance=data['db2'])
+        return render(request, 'agntSecretaria.html', data)
+
+    elif adm:
+        data['db2'] =AdministradorSistema.objects.get(cpf=cpf)
+        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        data['formE'] = EnderecoForm(instance=endereco)
+        data['adm'] = AdministradorSistemaForm(instance=data['db2'])
+        return render(request, 'cadastroPessoa.html', data)
+    
+
+def update(request, cpf):
+    user = Profissao.objects.filter(email=request.user)
+    data = {}
+    saude = AgenteSaude.objects.filter(cpf=cpf)
+    secretaria = AgenteSecretaria.objects.filter(cpf=cpf)
+    adm = AdministradorSistema.objects.filter(cpf=cpf)
+    data['db'] = user[0]
+    if saude:
+        data['db2'] =AgenteSaude.objects.get(cpf=cpf)
+        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        form = AgenteSaudeForm(request.POST or None, instance=data['db2'])
+        formE = EnderecoForm(request.POST or None, instance=endereco)
+        if form.is_valid() and formE.is_valid():
+            form.save()
+            formE.save()
+            return redirect('admSistema')
+
+    elif secretaria:
+        data['db2'] =AgenteSecretaria.objects.get(cpf=cpf)
+        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        form = AgenteSecretariaForm(request.POST or None, instance=data['db2'])
+        formE = EnderecoForm(request.POST or None, instance=endereco)
+        if form.is_valid() and formE.is_valid():
+            form.save()
+            formE.save()
+            return redirect('admSistema')
+      
+    elif adm:
+        data['db2'] = AdministradorSistema.objects.get(cpf=cpf)
+        endereco = Endereco.objects.get(logradouro=data['db2'].fk_endereco)
+        form = AdministradorSistemaForm(request.POST or None, instance=data['db2'])
+        formE = EnderecoForm(request.POST or None, instance=endereco)
+        if form.is_valid() and formE.is_valid():
+            form.save()
+            formE.save()
+            return redirect('admSistema')
+   

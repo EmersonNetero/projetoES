@@ -145,7 +145,7 @@ class TipoProcedimento(models.Model):
 class Agendamento(models.Model):
     pk_agendamento = models.AutoField(primary_key=True, verbose_name = "pkAgendamento")
     tipo_agendamento = models.CharField(max_length=30, null=False, blank=False, verbose_name="Tipo de Agendamento *")
-    data_agendamento = models.DateField(auto_now_add = True, null=False, blank=False, verbose_name="Data do Agendamento *")
+    data_agendamento = models.DateField(auto_now_add = False, null=False, blank=False, verbose_name="Data do Agendamento *")
     pago = models.BooleanField(null = True, default=False)
     valor = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False, verbose_name="Valor *")
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Observação")
