@@ -248,7 +248,7 @@ def telaPagamento(request):
     agendamentos = {}
     user = Profissao.objects.filter(email=request.user)
     agendamentos['db'] = user[0]
-    All = Agendamento.objects.all()
+    All = Agendamento.objects.all().order_by('pago')
     paginator = Paginator(All, 10)
     pages = request.GET.get('page')
     agendamentos['db2'] = paginator.get_page(pages)
