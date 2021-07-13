@@ -16,7 +16,7 @@
     </thead>
     <tbody>
         {% for dbs in db2 %}
-            {%if  not dbs.pago%}
+            {% if not dbs.pago%}
                 <tr>  
                     <th>{{dbs.fk_tipo_procedimento}}</th>
                     <th>{{dbs.fk_paciente}}</th>
@@ -33,14 +33,14 @@
 </table>
 
 <div class="pagination col-8 m-auto pt-5 pb-2 text-center">
-    {% if dbs.has_previous %}
-        <a href="?page={{dbs.previous_page_number}}"> < </a>
+    {% if db2.has_previous %}
+        <a href="?page={{db2.previous_page_number}}"> < </a>
     {% endif %}
 
-    {{dbs.number}}
+    {{db2.number}}
 
-    {% if dbs.has_next %}
-        <a href="?page={{dbs.next_page_number}}"> > </a>
+    {% if db2.has_next %}
+        <a href="?page={{db2.next_page_number}}"> > </a>
     {% endif %}
 </div>
 
