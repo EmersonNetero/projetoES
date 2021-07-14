@@ -74,9 +74,13 @@ class PagamentoForm(ModelForm):
         fields = '__all__'
 
 
-class PacienteForm(ModelForm):
+class PacienteForm(forms.ModelForm):
+    data_nascimento = forms.DateField(localize=False,
+        widget=forms.DateInput(format = '%Y-%m-%d',attrs={'type': 'date'}),initial=datetime.datetime.now())
+
     class Meta:
         model = Paciente
+        fields = '__all__'
         exclude = ('fk_endereco',)
 
 
