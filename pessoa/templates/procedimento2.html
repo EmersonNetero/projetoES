@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content%}
+<h3>REGISTRAR PROCEDIMENTO</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>Dados do Procedimento</th>
+            <th></th>
+        </tr>
+        </thead>
+    </table>
+
+    <table class="procedimento">
+        {% for field in formProcedimento %}
+        <tr>
+            <th>
+                {{ field.label_tag }}
+            </th>
+            <th>
+                {{ field }}
+            </th>
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <th style="position: absolute">
+                <input class="btn btn-primary" type="submit" value="Registrar Procedimento">
+                <input class="btn btn-primary" type="reset" value="Limpar Formulário">
+                <a href="/agtSaude" class="btn btn-primary">Voltar</a>
+            </th>
+        </tr>
+    </table>
+</form>
+
+{% if messages %}
+{% for message in messages %}
+<div class="mensagem">
+    <strong><font color="red">{{message}}</font></strong>
+</div>
+
+{% endfor %}
+{% endif %}
+
+{% endblock %}

@@ -151,3 +151,8 @@ nav{
   content:" *";
   color: red;
 }
+
+.procedimento th{
+    padding: 2px;
+}
+
