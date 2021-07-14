@@ -4,7 +4,9 @@ from django.urls import path
 from pessoa.views import home, login_user, \
     cadastrarCargo, admSistema, cadastrarTipoProcedimento, cadastrarPaciente, cadastraAgntSecretaria, cadastraAgntSaude, \
     cadastrarEndereco, cadAdmSistema, agendarConsultas, agtSaude, agtSecretaria, logout_user, pagar, telaPagamento, verAgendamento, \
-    viewAgendamento, realizarProcedimento, viewCronograma, viewCronogramaAgtSaude, viewUsuarios, edit, update
+    viewAgendamento, realizarProcedimento, viewCronograma, viewCronogramaAgtSaude, viewUsuarios, edit, update,\
+    addProcedimento, viewAgendamentoEsp
+
 
 
 
@@ -33,4 +35,6 @@ urlpatterns = [
     path('usuarios/', viewUsuarios),
     path('edit/<slug:cpf>/', edit),
     path('update/<slug:cpf>/', update),
+    path('addProcedimento/<int:age_id>', addProcedimento),
+    path('consultarAgendamentoEsp/', viewAgendamentoEsp),
 ]

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>RELAÇÃO DE PROCEDIMENTOS AGENDADOS</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Procedimento</th>
+            <th scope="col">Paciente</th>
+            <th scope="col">Data de Agendamento</th>
+            <th scope="col">Profissional Responsável</th>
+            <th scope="col">Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in result %}
+            <tr>
+                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.fk_tipo_procedimento}} </th>
+                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.fk_paciente}} </th>
+                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.data_agendamento }} </th>
+                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.fk_agente_saude}} </a></th>
+                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> R$ {{a.valor}} </th>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock%}

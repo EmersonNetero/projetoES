@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'clinica.urls'
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -84,8 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbCentroMedico',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'adriano',
+        'PASSWORD': 'adriano10',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -93,7 +95,6 @@ DATABASES = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'app/static/')
 MEDIA_URL = ''
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

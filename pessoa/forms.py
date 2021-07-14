@@ -3,9 +3,14 @@ from django import forms
 # from inputmask.widgets import InputMask
 from pessoa.models import Profissao, Endereco, AgenteSecretaria, AdministradorSistema, Cargo, Procedimento, \
     TipoProcedimento, Pagamento, Paciente, AgenteSaude, Agendamento
+from django.utils import timezone
+import datetime
+from importlib import import_module
+
 
 # class MyCustomInput(InputMask):
 #    mask = {'cpf': '000.000.000-00'}
+
 
 class LoginForm(ModelForm):
     class Meta:
@@ -79,4 +84,33 @@ class ProcedimentoForm(ModelForm):
     class Meta:
         model = Procedimento
         fields = '__all__'
+
+class Procedimento2Form(forms.Form):
+    def __init__(self, setData, *args,  **kwargs):
+        self.a = setData.get('ageId')
+        self.b = setData.get('nPaciente')
+        self.c = setData.get('aSaude')
+        super(Procedimento2Form, self, ).__init__(*args, **kwargs)
+        self.fields['agendamento'] = forms.ModelChoiceField(queryset=Agendamento.objects.all(), to_field_name=None,
+                                                            initial=self.a)
+        self.fields['paciente'] = forms.ModelChoiceField(queryset=Paciente.objects.all(),  to_field_name='nome',
+                                                            widget=forms.TextInput(attrs={'size': 78}),
+                                                            initial=self.b)
+        self.fields['comorbidade'] = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'size': 78}))
+        self.fields['gravidade'] = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'size': 78}))
+        self.fields['medicamento'] = forms.CharField(max_length=300, required=False, widget=forms.Textarea(attrs={'cols': 80, 'rows': 4}))  #
+        self.fields['descricao'] = forms.CharField(max_length=300, required=False, widget=forms.Textarea(attrs={'cols': 80, 'rows': 4}), label='Descrição') #
+        self.fields['observacao'] = forms.CharField(max_length=300, required=False, widget=forms.Textarea(attrs={'cols': 80, 'rows': 4}), label='Observação') #
+        self.fields['agenteSaude'] = forms.ModelChoiceField(queryset=AgenteSaude.objects.all(),
+                                                            to_field_name='nome', widget=forms.TextInput(attrs={'size': 78}),
+                                                            label='Agente de Saúde', initial=self.c)
+        self.fields['data_procedimento'] = forms.DateField(localize=False,
+        widget=forms.DateInput(format = '%Y-%m-%d',attrs={'type': 'date'}),initial=datetime.datetime.now())
+        self.fields['realizado'] = forms.BooleanField(required=False, widget=forms.CheckboxInput (attrs={'size': 20}))
+
+    def clean(self):
+        realizado = self.cleaned_data.get('realizado')
+        return realizado
+
+
 

@@ -4,12 +4,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao, Endereco
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao, Endereco, Procedimento
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
-    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
+    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm, Procedimento2Form
 from django.contrib import messages
 from django.core.paginator import Paginator
-
+from django.shortcuts import get_object_or_404
 
 ###
 def cria_user_django(info):
@@ -39,7 +39,9 @@ def login_user(request):
         usuario = authenticate(request, username=email, password=senha)
         if usuario is not None:
             login(request, usuario)
-            return redirect_to_menu(request.POST['usuario'])     
+            use = User.objects.get(username=email)
+            request.session['username'] = use.first_name
+            return redirect_to_menu(request.POST['usuario'])
         else:
             messages.error(request, "email ou senha errado!!")
             return render(request, 'login.html')
@@ -218,8 +220,6 @@ def agendarConsultas(request):
     return render(request, "agendamento.html", {'formAgenda': formAgenda, 'db':user[0]})
 
 ###
-
-###
 def viewAgendamento(request):
     agendamentos = {}
     user = Profissao.objects.filter(email=request.user)
@@ -234,6 +234,7 @@ def viewAgendamento(request):
         agendamentos['db2'] = paginator.get_page(pages)
     return render(request, 'consultarAgendamento.html', agendamentos)
 
+###
 def viewCronograma(request):
     user = Profissao.objects.filter(email=request.user)
     agendamentos = {}
@@ -263,6 +264,7 @@ def pagar(request, pk):
     pago.save()
     pagamentos['db2'] = Agendamento.objects.get(pk_agendamento=pk)
     return render(request, 'pagar.html', pagamentos)
+
 ###
 def realizarProcedimento(request):
     context = {}
@@ -280,6 +282,7 @@ def realizarProcedimento(request):
     context['formProcedimento'] = formProcedimento
     return render(request, "procedimento.html", {'formProcedimento': formProcedimento, 'db':user[0]})
 
+
 def viewCronogramaAgtSaude(request, nome):
     agendamentos = {}
     user = Profissao.objects.filter(email=request.user)
@@ -292,6 +295,7 @@ def viewCronogramaAgtSaude(request, nome):
         pages = request.GET.get('page')
         agendamentos['db2'] = paginator.get_page(pages)
     return render(request, 'cronogramAgt.html', agendamentos)
+
 
 def verAgendamento(request, pk):
     agendamento = {}
@@ -341,7 +345,7 @@ def edit(request, cpf):
         data['formE'] = EnderecoForm(instance=endereco)
         data['adm'] = AdministradorSistemaForm(instance=data['db2'])
         return render(request, 'cadastroPessoa.html', data)
-    
+
 
 def update(request, cpf):
     user = Profissao.objects.filter(email=request.user)
@@ -369,7 +373,7 @@ def update(request, cpf):
             form.save()
             formE.save()
             return redirect('admSistema')
-      
+
     elif adm:
         data['db2'] = AdministradorSistema.objects.get(cpf=cpf)
         endereco = Endereco.objects.get(pk_endereco=data['db2'].fk_endereco.pk_endereco)
@@ -379,4 +383,53 @@ def update(request, cpf):
             form.save()
             formE.save()
             return redirect('admSistema')
-   
+
+###
+def addProcedimento(request, age_id):
+    context = {}
+    procedimento = Procedimento()
+    objAgendamento, objPaciente = viewAgendamentoSel(age_id)
+    setData = {
+        'ageId': objAgendamento,
+        'nPaciente': objPaciente,
+        'aSaude': request.session.get('username')
+    }
+    if request.method == "POST":
+        formProcedimento = Procedimento2Form(request.POST)
+        if formProcedimento.is_valid():
+            procedimento.fk_agendamento = formProcedimento.cleaned_data.get('agendamento')
+            procedimento.fk_paciente = formProcedimento.cleaned_data.get('paciente')
+            procedimento.comorbidade = formProcedimento.cleaned_data.get('comorbidade')
+            procedimento.gravidade = formProcedimento.cleaned_data.get('gravidade')
+            procedimento.medicamento = formProcedimento.cleaned_data.get('medicamento')
+            procedimento.descricao = formProcedimento.cleaned_data.get('descricao')
+            procedimento.observacao = formProcedimento.cleaned_data.get('observacao')
+            procedimento.fk_agente_saude = formProcedimento.cleaned_data.get('agenteSaude')
+            procedimento.data_procedimento = formProcedimento.cleaned_data.get('data_procedimento')
+            procedimento.realizado = True
+            procedimento.save()
+            messages.info(request, "Procedimento Realizado com Sucesso!")
+            return HttpResponseRedirect("/")
+    else:
+
+        formProcedimento = Procedimento2Form(setData=setData)
+    context = {
+        'formProcedimento': formProcedimento,
+        'procedimento': procedimento,
+    }
+    return render(request, "procedimento2.html", context)
+
+###
+def viewAgendamentoEsp(request):
+    agendamentosEsp = {}
+    agendamentos = Agendamento.objects.filter(confirmado=False) #AQUI SERÁ True
+    agendamentosEsp['result'] = agendamentos
+    return render(request, 'consultarAgendamentoEsp.html', agendamentosEsp)
+
+###
+def viewAgendamentoSel(age_id):
+    agendamento = get_object_or_404(Agendamento, pk_agendamento=age_id)
+    objAgendamento = agendamento.pk_agendamento
+    paciente = agendamento.fk_paciente
+    objPaciente = paciente.nome
+    return objAgendamento, objPaciente
