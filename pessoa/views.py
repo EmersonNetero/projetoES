@@ -73,7 +73,7 @@ def agtSecretaria(request):
 ###
 def cadastrarCargo(request):
     context = {}
-    user = Profissao.objects.filter(email=request.user)
+    #user = Profissao.objects.filter(email=request.user)
     f = CargoForm()
     head = 1
     if request.method == "POST":
@@ -82,11 +82,11 @@ def cadastrarCargo(request):
             formCargo.save()
             context['form'] = f
             messages.info(request, "Cargo Cadastrado com Sucesso!")
-            return render(request, "cadDiverso.html", {'formG': f, 'head': head, 'db': user[0]})
+            return render(request, "cadDiverso.html", {'formG': f, 'head': head})#, 'db': user[0]})
     else:
         formCargo = CargoForm()
     context['form'] = formCargo
-    return render(request, "cadDiverso.html", {'formG': formCargo, 'head': head, 'db': user[0]})
+    return render(request, "cadDiverso.html", {'formG': formCargo, 'head': head})#, 'db': user[0]})
 
 ###
 def cadastrarTipoProcedimento(request):
@@ -184,7 +184,7 @@ def cadastrarEndereco(request):
 
 ###
 def cadAdmSistema(request):
-    user = Profissao.objects.filter(email=request.user)
+    #user = Profissao.objects.filter(email=request.user)
     if request.method == "POST":
         adm = AdministradorSistemaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
@@ -199,7 +199,7 @@ def cadAdmSistema(request):
     else:
         adm = AdministradorSistemaForm()
         formE = EnderecoForm()
-    return render(request, "cadastroPessoa.html", {'adm': adm, 'formE': formE, 'db':user[0]})
+    return render(request, "cadastroPessoa.html",{'adm': adm, 'formE': formE}) #, 'db':user[0]})
 
 ###
 def agendarConsultas(request):

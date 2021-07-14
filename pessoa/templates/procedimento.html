@@ -19,18 +19,16 @@
                 <input class="btn btn-primary" type="submit" value="Registrar Procedimento">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="mensagem" style = 'margin-top:35px'>
+                    <strong><font color="red">{{message}}</font></strong>
+                </div>
+                {% endfor %}
+                {% endif %}
             </th>
         </tr>
     </table>
 </form>
-
-{% if messages %}
-{% for message in messages %}
-<div class="mensagem">
-    <strong><font color="red">{{message}}</font></strong>
-</div>
-
-{% endfor %}
-{% endif %}
 
 {% endblock %}
