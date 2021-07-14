@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>CADASTRO DE PACIENTES</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>Dados Pessoais</th>
+            <th>Endereço</th>
+        </tr>
+        </thead>
+        <tr>
+            <th>
+                <table class="procedimento">
+                    {% for field in formP %}
+                    <tr>
+                        <th>
+                            {{ field.label_tag }}
+                        </th>
+                        <th>
+                            {{ field }}
+                        </th>
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </th>
+
+            <th>
+                <table class="procedimento">
+                    {% for field in formE %}
+                    <tr>
+                        <th>
+                            {{ field.label_tag }}
+                        </th>
+                        <th>
+                            {{ field }}
+                        </th>
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <input class="btn btn-primary" type="submit" value="Cadastrar">
+                <input class="btn btn-primary" type="reset" value="Limpar Formulário">
+                <a href="/admsistema" class="btn btn-primary">Voltar</a>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="mensagem" style='margin-top:35px'>
+                    <strong><font color="red">{{message}}</font></strong>
+                </div>
+                {% endfor%}
+                {% endif %}
+            </th>
+    </table>
+</form>
+{% endblock%}
