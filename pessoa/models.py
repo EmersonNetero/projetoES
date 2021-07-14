@@ -104,7 +104,6 @@ class AgenteSaude(Profissao):
         return self.nome
 
 ###
-
 class Paciente(models.Model):
     pk_paciente = models.AutoField(primary_key=True, verbose_name="pkPaciente")
     nome = models.CharField(max_length=200, null=False, blank = False, verbose_name="Nome *")
@@ -114,7 +113,7 @@ class Paciente(models.Model):
     rg = models.CharField(max_length=50, null=True, blank=True, verbose_name="Carteira Identidade")
     email = models.EmailField(max_length=60, null=True, blank=True, unique=True, verbose_name="E-mail")
     sangue_tipo = models.CharField(max_length=12, null=True, blank=True, verbose_name="Tipo de Sangue")
-    peso = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    peso = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     altura = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     fk_endereco = models.ForeignKey('Endereco', db_column='pk_endereco', on_delete=models.PROTECT)
 
@@ -147,6 +146,7 @@ class Agendamento(models.Model):
     tipo_agendamento = models.CharField(max_length=30, null=False, blank=False, verbose_name="Tipo de Agendamento *")
     data_agendamento = models.DateField(auto_now_add = False, null=False, blank=False, verbose_name="Data do Agendamento *")
     pago = models.BooleanField(null = True, default=False)
+    confirmado = models.BooleanField(null=True, default=False)
     valor = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False, verbose_name="Valor *")
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Observação")
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente', blank=False,
@@ -167,6 +167,8 @@ class Agendamento(models.Model):
         verbose_name_plural = 'Agendamentos'
         db_table = 'agendamento'
 
+    #def __str__(self):
+        #return str(self.pk_agendamento)
     def __str__(self):
         return f'{self.fk_paciente}'
 
@@ -186,6 +188,8 @@ class Pagamento(models.Model):
         verbose_name_plural = 'Pagamentos'
         db_table = 'pagamento'
 
+    #def __str__(self):
+        #return  str(self.fk_paciente)
     def __str__(self):
         return  self.fk_paciente
 
@@ -199,11 +203,13 @@ class Procedimento(models.Model):
     descricao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Descrição")
     observacao = models.TextField(max_length=300, null=True, blank=True, unique=False, verbose_name="Observação")
     realizado = models.BooleanField(null=True, default=False)
+    data_procedimento = models.DateField(null=False, blank=False,
+                                        verbose_name="Data do procediemnto *")
     fk_paciente = models.ForeignKey('Paciente', db_column='pk_paciente', blank=False,
                                              verbose_name="Paciente *",
                                              on_delete=models.PROTECT)
     fk_agendamento = models.ForeignKey('Agendamento', db_column='pk_agendamento', blank=False,
-                                             verbose_name="Tipo de Procedimento *",
+                                             verbose_name="Agendamento *",
                                              on_delete=models.PROTECT)
     fk_agente_saude = models.ForeignKey('AgenteSaude', db_column='pk_agente_saude',
                                              verbose_name="Agente de Saúde *", null=True, blank=True,
@@ -214,5 +220,7 @@ class Procedimento(models.Model):
         verbose_name_plural = 'Procedimentos'
         db_table = 'procedimento'
 
+    #def __int__(self):
+        #return  str(self.pk_agendamento)
     def __str__(self):
         return  self.fk_paciente
