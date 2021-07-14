@@ -1,11 +1,10 @@
-
 from django.contrib import admin
 from django.urls import path
 from pessoa.views import home, login_user, \
     cadastrarCargo, admSistema, cadastrarTipoProcedimento, cadastrarPaciente, cadastraAgntSecretaria, cadastraAgntSaude, \
     cadastrarEndereco, cadAdmSistema, agendarConsultas, agtSaude, agtSecretaria, logout_user, pagar, telaPagamento, verAgendamento, \
     viewAgendamento, realizarProcedimento, viewCronograma, viewCronogramaAgtSaude, viewUsuarios, edit, update,\
-    addProcedimento, viewAgendamentoEsp
+    addProcedimento, viewAgendamentoEsp, agendarCirurgias, agendarExames
 
 
 
@@ -22,7 +21,9 @@ urlpatterns = [
     path('cadastrarAgntSecretaria/', cadastraAgntSecretaria, name='cadastrarAgntSecretaria'),
     path('cadastrarAgntSaude/', cadastraAgntSaude, name='cadastrarAgntSaude'),
     path('cadAdmSistema/', cadAdmSistema),
-    path('agendamento/', agendarConsultas, name='agendamento'),
+    path('agendarConsultas/', agendarConsultas, name='agendamento'),
+    path('agendarExames/', agendarExames),
+    path('agendarCirurgias/', agendarCirurgias),
     path('agtSaude/', agtSaude, name='agtSaude'),
     path('agtSecretaria/', agtSecretaria, name='agtSecretaria'),
     path('consultarAgendamento/', viewAgendamento),

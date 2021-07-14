@@ -5,6 +5,7 @@
 <div id="Agendamento">
     <table class="table" style = "text-align: center; border: 2px solid black" >
         <tr>
+            <th scope="col" style = "border: 2px solid black">Tipo de Procedimento </th>
             <th scope="col" style = "border: 2px solid black">Procedimento </th>
             <th scope="col" style = "border: 2px solid black">Paciente </th>
             <th scope="col" style = "border: 2px solid black">Data de Agendamento </th>
@@ -12,7 +13,8 @@
             <th scope="col" style = "border: 2px solid black">Valor </th>
             <th style = "border: 2px solid black" >Situação</th>
         </tr>
-            <tr>  
+            <tr>
+                <th style = "border: 2px solid black">{{db2.tipo_agendamento}}</th> 
                 <th style = "border: 2px solid black">{{db2.fk_tipo_procedimento}}</th>
                 <th style = "border: 2px solid black">{{db2.fk_paciente}}</th>
                 <th style = "border: 2px solid black">{{db2.data_agendamento}}</th>

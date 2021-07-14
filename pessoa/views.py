@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao, Endereco, Procedimento
+from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao, Endereco, Procedimento, TipoProcedimento
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
     TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm, Procedimento2Form
 from django.contrib import messages
@@ -214,11 +214,41 @@ def agendarConsultas(request):
             formAgenda.save()
             context['formAgenda'] = f
             messages.info(request, "Agendamento cadastrado com sucesso!")
-            return HttpResponseRedirect("/agendamento")
+            return HttpResponseRedirect("/agendarConsultas")
     else:
         formAgenda = AgendamentoForm()
     return render(request, "agendamento.html", {'formAgenda': formAgenda, 'db':user[0]})
 
+def agendarExames(request):
+    context = {}
+    user = Profissao.objects.filter(email=request.user)
+    f = AgendamentoForm()
+    if request.method == 'POST':
+        formAgenda = AgendamentoForm(request.POST)
+        if formAgenda.is_valid():
+            formAgenda.save()
+            context['formAgenda'] = f
+            messages.info(request, "Agendamento cadastrado com sucesso!")
+            return HttpResponseRedirect("/agendarExames")
+    else:
+        formAgenda = AgendamentoForm()
+        
+    return render(request, "agendarExame.html", {'formAgenda': formAgenda, 'db':user[0]})
+
+def agendarCirurgias(request):
+    context = {}
+    user = Profissao.objects.filter(email=request.user)
+    f = AgendamentoForm()
+    if request.method == 'POST':
+        formAgenda = AgendamentoForm(request.POST)
+        if formAgenda.is_valid():
+            formAgenda.save()
+            context['formAgenda'] = f
+            messages.info(request, "Agendamento cadastrado com sucesso!")
+            return HttpResponseRedirect("/agendarCirurgias")
+    else:
+        formAgenda = AgendamentoForm()
+    return render(request, "agendarCirurgia.html", {'formAgenda': formAgenda, 'db':user[0]})
 ###
 def viewAgendamento(request):
     agendamentos = {}
