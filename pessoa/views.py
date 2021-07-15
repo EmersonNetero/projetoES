@@ -205,6 +205,8 @@ def cadAdmSistema(request):
 
 ###
 def agendarConsultas(request):
+    url = request.path
+    print(url)
     context = {}
     user = Profissao.objects.filter(email=request.user)
     f = AgendamentoForm()
@@ -214,11 +216,12 @@ def agendarConsultas(request):
             formAgenda.save()
             context['formAgenda'] = f
             messages.info(request, "Agendamento cadastrado com sucesso!")
-            return HttpResponseRedirect("/agendarConsultas")
+            return HttpResponseRedirect(url)
     else:
         formAgenda = AgendamentoForm()
-    return render(request, "agendamento.html", {'formAgenda': formAgenda, 'db':user[0]})
+    return render(request, "agendamento.html", {'formAgenda': formAgenda, 'db':user[0], 'url':url})
 
+'''
 def agendarExames(request):
     context = {}
     user = Profissao.objects.filter(email=request.user)
@@ -234,7 +237,8 @@ def agendarExames(request):
         formAgenda = AgendamentoForm()
         
     return render(request, "agendarExame.html", {'formAgenda': formAgenda, 'db':user[0]})
-
+'''
+'''
 def agendarCirurgias(request):
     context = {}
     user = Profissao.objects.filter(email=request.user)
@@ -249,6 +253,8 @@ def agendarCirurgias(request):
     else:
         formAgenda = AgendamentoForm()
     return render(request, "agendarCirurgia.html", {'formAgenda': formAgenda, 'db':user[0]})
+'''
+
 ###
 def viewAgendamento(request):
     agendamentos = {}

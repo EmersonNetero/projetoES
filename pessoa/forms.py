@@ -1,16 +1,11 @@
 from django.forms import ModelForm
 from django import forms
-# from inputmask.widgets import InputMask
+#from inputmask.widgets import InputMask #Para versões antigas do django
 from pessoa.models import Profissao, Endereco, AgenteSecretaria, AdministradorSistema, Cargo, Procedimento, \
     TipoProcedimento, Pagamento, Paciente, AgenteSaude, Agendamento
 from django.utils import timezone
 import datetime
 from importlib import import_module
-
-
-# class MyCustomInput(InputMask):
-#    mask = {'cpf': '000.000.000-00'}
-
 
 class LoginForm(ModelForm):
     class Meta:
@@ -63,6 +58,14 @@ class TipoProcedimentoForm(ModelForm):
 
 
 class AgendamentoForm(ModelForm):
+    data_agendamento = forms.DateField(localize=False,
+                                      widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+                                      initial=datetime.datetime.now())
+    tipo_agendamento = forms.CharField(widget=forms.TextInput(attrs={'disabled':'True'}))
+    observacao = forms.CharField(max_length=300, required=False, widget=forms.Textarea(attrs={'cols': 50, 'rows': 4}), label='Observação')
+    pago = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'size': 20}))
+    confirmado = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'size': 20}))
+
     class Meta:
         model = Agendamento
         fields = '__all__'
