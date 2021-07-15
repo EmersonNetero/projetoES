@@ -1,6 +1,5 @@
 from django.forms import ModelForm
 from django import forms
-#from inputmask.widgets import InputMask #Para versões antigas do django
 from pessoa.models import Profissao, Endereco, AgenteSecretaria, AdministradorSistema, Cargo, Procedimento, \
     TipoProcedimento, Pagamento, Paciente, AgenteSaude, Agendamento
 from django.utils import timezone
@@ -39,7 +38,7 @@ class AdministradorSistemaForm(ProfissaoForm):
         exclude = ('fk_endereco',)
 
 
-class EnderecoForm(ModelForm):
+class EnderecoForm(forms.ModelForm):
     class Meta:
         model = Endereco
         fields = '__all__'

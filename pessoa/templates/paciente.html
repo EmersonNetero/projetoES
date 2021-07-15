@@ -11,23 +11,54 @@
         </tr>
         </thead>
         <tr>
-            <th width="600px">{{formP.as_p}}</th>
-            <th style="position: absolute">{{formE.as_p}}
+            <th>
+                <table class="procedimento">
+                     {{ formP.non_field_errors }}
+                    {% for field in formP %}
+                    <tr>
+                        <th>
+                            {{ field.label_tag }}
+                        </th>
+                        <th>
+                            {{ field }}
+                            {{ field.errors }}
+                        </th>
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </th>
+
+            <th>
+                <table class="procedimento">
+                    {% for field in formE %}
+                    <tr>
+                        <th>
+                            {{ field.label_tag }}
+                        </th>
+                        <th>
+                            {{ field }}
+                        </th>
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br>
                 <input class="btn btn-primary" type="submit" value="Cadastrar">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
                 {% if messages %}
                 {% for message in messages %}
-                <div class="mensagem" style = 'margin-top:35px'>
+                <div class="mensagem" style='margin-top:35px'>
                     <strong><font color="red">{{message}}</font></strong>
                 </div>
                 {% endfor%}
                 {% endif %}
-            </th>  
-        </tr>
+            </th>
     </table>
 </form>
-
-
-
 {% endblock%}

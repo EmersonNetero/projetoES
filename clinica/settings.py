@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'app',
     'pessoa',
+    'cpf_field',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbCentroMedico',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'adriano',
+        'PASSWORD': 'adriano10',
         'HOST': 'localhost',
         'PORT': '5432',
     }

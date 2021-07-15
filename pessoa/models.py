@@ -1,5 +1,5 @@
 from django.db import models
-
+from cpf_field.models import CPFField
 # Create your models here.
 
 class Endereco(models.Model):
@@ -107,7 +107,7 @@ class AgenteSaude(Profissao):
 class Paciente(models.Model):
     pk_paciente = models.AutoField(primary_key=True, verbose_name="pkPaciente")
     nome = models.CharField(max_length=200, null=False, blank = False, verbose_name="Nome *")
-    cpf = models.CharField(max_length=11, null=False, unique=True, verbose_name="CPF")
+    CPF = CPFField('cpf', null=False, unique=True, blank=False)
     data_nascimento = models.DateField(null=False, blank=False, verbose_name="Data Nascimento *")
     telefone = models.CharField(max_length=14, null=False, blank=False, verbose_name="Telefone *")
     rg = models.CharField(max_length=50, null=True, blank=True, verbose_name="Carteira Identidade")

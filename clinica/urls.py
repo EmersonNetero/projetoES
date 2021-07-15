@@ -4,7 +4,7 @@ from pessoa.views import home, login_user, \
     cadastrarCargo, admSistema, cadastrarTipoProcedimento, cadastrarPaciente, cadastraAgntSecretaria, cadastraAgntSaude, \
     cadastrarEndereco, cadAdmSistema, agendarConsultas, agtSaude, agtSecretaria, logout_user, pagar, telaPagamento, verAgendamento, \
     viewAgendamento, realizarProcedimento, viewCronograma, viewCronogramaAgtSaude, viewUsuarios, edit, update,\
-    addProcedimento, viewAgendamentoEsp, viewProntuarios #agendarCirurgias agendarExames
+    addProcedimento, viewAgendamentoEsp, viewProntuarios
 
 
 
@@ -22,7 +22,7 @@ urlpatterns = [
     path('cadastrarAgntSaude/', cadastraAgntSaude, name='cadastrarAgntSaude'),
     path('cadAdmSistema/', cadAdmSistema),
     path('agendarConsultas/', agendarConsultas, name='agendamento'),
-    path('agendarExames/', agendarConsultas), #AgendarConsultas, pode mudar para agendamentos
+    path('agendarExames/', agendarConsultas),
     path('agendarCirurgias/', agendarConsultas),
     path('agtSaude/', agtSaude, name='agtSaude'),
     path('agtSecretaria/', agtSecretaria, name='agtSecretaria'),

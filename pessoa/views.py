@@ -247,39 +247,6 @@ def agendarConsultas(request):
         formAgenda = AgendamentoForm()
     return render(request, "agendamento.html", {'formAgenda': formAgenda, 'db':user[0], 'url':url})
 
-'''
-def agendarExames(request):
-    context = {}
-    user = Profissao.objects.filter(email=request.user)
-    f = AgendamentoForm()
-    if request.method == 'POST':
-        formAgenda = AgendamentoForm(request.POST)
-        if formAgenda.is_valid():
-            formAgenda.save()
-            context['formAgenda'] = f
-            messages.info(request, "Agendamento cadastrado com sucesso!")
-            return HttpResponseRedirect("/agendarExames")
-    else:
-        formAgenda = AgendamentoForm()
-        
-    return render(request, "agendarExame.html", {'formAgenda': formAgenda, 'db':user[0]})
-'''
-'''
-def agendarCirurgias(request):
-    context = {}
-    user = Profissao.objects.filter(email=request.user)
-    f = AgendamentoForm()
-    if request.method == 'POST':
-        formAgenda = AgendamentoForm(request.POST)
-        if formAgenda.is_valid():
-            formAgenda.save()
-            context['formAgenda'] = f
-            messages.info(request, "Agendamento cadastrado com sucesso!")
-            return HttpResponseRedirect("/agendarCirurgias")
-    else:
-        formAgenda = AgendamentoForm()
-    return render(request, "agendarCirurgia.html", {'formAgenda': formAgenda, 'db':user[0]})
-'''
 
 ###
 def viewAgendamento(request):
