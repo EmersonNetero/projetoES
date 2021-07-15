@@ -61,21 +61,27 @@ def home(request):
 # telas do cargos 
 def admSistema(request):
     aux = AdministradorSistema.objects.filter(email=request.user)
-    return render(request, "menuAdmSistema.html", {'db': aux[0]})
+    if aux:
+        return render(request, "menuAdmSistema.html", {'db': aux[0]})
+    return render(request, "menuAdmSistema.html")
 
 def agtSaude(request):
     aux = AgenteSaude.objects.filter(email=request.user)
-    return render(request, "menuAgtSaude.html", {'db': aux[0]})
+    if aux:
+        return render(request, "menuAgtSaude.html", {'db': aux[0]})
+    return render(request, "menuAgtSaude.html")
 
 ###
 def agtSecretaria(request):
     aux = AgenteSecretaria.objects.filter(email=request.user)
-    return render(request, "menuAgtSecretaria.html", {'db': aux[0]})
+    if aux:
+        return render(request, "menuAgtSecretaria.html", {'db': aux[0]})
+    return render(request, "menuAgtSecretaria.html")
 
 ###
 def cadastrarCargo(request):
     context = {}
-    #user = Profissao.objects.filter(email=request.user)
+    user = Profissao.objects.filter(email=request.user)
     f = CargoForm()
     head = 1
     if request.method == "POST":
@@ -84,10 +90,14 @@ def cadastrarCargo(request):
             formCargo.save()
             context['form'] = f
             messages.info(request, "Cargo Cadastrado com Sucesso!")
+            if user:
+                return render(request, "cadDiverso.html", {'formG': f, 'head': head, 'db': user[0]})
             return render(request, "cadDiverso.html", {'formG': f, 'head': head})#, 'db': user[0]})
     else:
         formCargo = CargoForm()
     context['form'] = formCargo
+    if user:
+        return render(request, "cadDiverso.html", {'formG': f, 'head': head, 'db': user[0]})
     return render(request, "cadDiverso.html", {'formG': formCargo, 'head': head})#, 'db': user[0]})
 
 ###
@@ -102,11 +112,15 @@ def cadastrarTipoProcedimento(request):
             formTipProcedimento.save()
             context['form'] = f
             messages.info(request, "Tipo de Procediemnto Cadastrado com Sucesso!")
-            return render(request, "cadDiverso.html", {'formTp': f, 'head': head, 'db':user[0]})
+            if user:
+                return render(request, "cadDiverso.html", {'formTp': f, 'head': head, 'db':user[0]})
+            return render(request, "cadDiverso.html", {'formTp': f, 'head': head})
     else:
         formTipProcedimento = TipoProcedimentoForm()
     context['form'] = formTipProcedimento
-    return render(request, "cadDiverso.html", {'formTp': formTipProcedimento, 'head': head, 'db':user[0]})
+    if user:
+        return render(request, "cadDiverso.html", {'formTp': formTipProcedimento, 'head': head, 'db':user[0]})
+    return render(request, "cadDiverso.html", {'formTp': f, 'head': head})
 
 
 ###
@@ -126,7 +140,9 @@ def cadastrarPaciente(request):
     else:
         formP = PacienteForm()
         formE = EnderecoForm()
-    return render(request, "paciente.html", {'formP': formP, 'formE': formE, 'db': user[0]})
+    if user:
+        return render(request, "paciente.html", {'formP': formP, 'formE': formE, 'db': user[0]})
+    return render(request, "paciente.html", {'formP': formP, 'formE': formE})
 
 ###
 def cadastraAgntSecretaria(request):
@@ -145,7 +161,9 @@ def cadastraAgntSecretaria(request):
     else:
         formS = AgenteSecretariaForm()
         formE = EnderecoForm()
-    return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE, 'db':user[0]})
+    if user:
+        return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE, 'db':user[0]})
+    return render(request, "agntSecretaria.html", {'formS': formS, 'formE': formE})
 
 ###
 def cadastraAgntSaude(request):
@@ -164,7 +182,9 @@ def cadastraAgntSaude(request):
     else:
         saude = AgenteSaudeForm()
         formE = EnderecoForm()
-    return render(request, "agntSaude.html", {'saude': saude, 'formE': formE, 'db':user[0]})
+    if user:
+        return render(request, "agntSaude.html", {'saude': saude, 'formE': formE, 'db':user[0]})
+    return render(request, "agntSaude.html", {'saude': saude, 'formE': formE})
 
 ###
 def cadastrarEndereco(request):
@@ -186,7 +206,7 @@ def cadastrarEndereco(request):
 
 ###
 def cadAdmSistema(request):
-    #user = Profissao.objects.filter(email=request.user)
+    user = Profissao.objects.filter(email=request.user)
     if request.method == "POST":
         adm = AdministradorSistemaForm(request.POST, request.FILES)
         formE = EnderecoForm(request.POST)
@@ -201,6 +221,8 @@ def cadAdmSistema(request):
     else:
         adm = AdministradorSistemaForm()
         formE = EnderecoForm()
+    if user:
+        return render(request, "cadastroPessoa.html",{'adm': adm, 'formE': formE, 'db':user[0]})
     return render(request, "cadastroPessoa.html",{'adm': adm, 'formE': formE}) #, 'db':user[0]})
 
 ###
@@ -469,3 +491,17 @@ def viewAgendamentoSel(age_id):
     paciente = agendamento.fk_paciente
     objPaciente = paciente.nome
     return objAgendamento, objPaciente
+
+###
+def viewProntuarios(request):
+    data = {}
+    user = Profissao.objects.filter(email=request.user)
+    data['db'] = user[0]
+    search = request.GET.get('busca')
+    if search:
+        data['db2'] = Procedimento.objects.filter(fk_paciente__nome=search)
+        if data['db2']:
+            data['paciente'] = search
+    else:
+        data['db2'] = Procedimento.objects.all()
+    return render(request, 'consultaProntuarios.html', data)

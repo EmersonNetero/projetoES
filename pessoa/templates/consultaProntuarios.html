@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Prontuarios</h3>
+    <div id="prontuario">
+        <div class="col-8 m-auto pt-3 pb-2 text-center">
+            <form method="GET">
+                <input type="text" id="busca" name="busca" class="form-control" placeholder="buscando pacientes...">
+            </form>
+        </div>
+        <table class="table" style = "text-align: center;" >
+            {% if paciente %}
+                <h5>{{paciente}}</h5>
+            {% endif %}
+            <tr>
+                <th scope="col">Medicamentos </th>
+                <th scope="col" >Comorbidade </th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Observação</th>
+                <th scope="col">Data Procedimento</th>
+               
+            </tr>
+                {% for p in db2 %}
+                <tr>  
+                    <th>{{p.medicamento}}</th>
+                    <th>{{p.comorbidade}}</th>
+                    <th>{{p.gravidade}}</th>
+                    <th>{{p.descricao}}</th>
+                    <th>{{p.observacao}}</th>
+                    <th>{{p.data_procedimento}}</th>
+                </tr>
+                {% endfor %}
+        </table>
+    </div>
+{% endblock %}
