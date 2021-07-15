@@ -4,7 +4,7 @@ from pessoa.views import home, login_user, \
     cadastrarCargo, admSistema, cadastrarTipoProcedimento, cadastrarPaciente, cadastraAgntSecretaria, cadastraAgntSaude, \
     cadastrarEndereco, cadAdmSistema, agendarConsultas, agtSaude, agtSecretaria, logout_user, pagar, telaPagamento, verAgendamento, \
     viewAgendamento, realizarProcedimento, viewCronograma, viewCronogramaAgtSaude, viewUsuarios, edit, update,\
-    addProcedimento, viewAgendamentoEsp, agendarCirurgias, agendarExames, viewProntuarios, #agendarCirurgias agendarExames
+    addProcedimento, viewAgendamentoEsp, viewProntuarios #agendarCirurgias agendarExames
 
 
 
