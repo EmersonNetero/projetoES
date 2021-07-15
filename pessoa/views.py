@@ -40,7 +40,11 @@ def login_user(request):
         if usuario is not None:
             login(request, usuario)
             use = User.objects.get(username=email)
+            sauId = get_object_or_404(AgenteSaude, email=email)
+            print(sauId)
             request.session['username'] = use.first_name
+            request.session['sauId'] = sauId.pk_agente_saude
+            print(sauId.pk_agente_saude)
             return redirect_to_menu(request.POST['usuario'])
         else:
             messages.error(request, "email ou senha errado!!")
@@ -478,10 +482,12 @@ def addProcedimento(request, age_id):
     return render(request, "procedimento2.html", context)
 
 ###
-def viewAgendamentoEsp(request):
-    agendamentosEsp = {}
-    agendamentos = Agendamento.objects.filter(confirmado=False) #AQUI SERÁ True
-    agendamentosEsp['result'] = agendamentos
+def viewAgendamentoEsp(request, sau_id):
+    agendamentosEsp : {}
+    agendamentos = Agendamento.objects.filter(confirmado=False, fk_agente_saude=sau_id) #AQUI SERÁ True
+    agendamentosEsp = {
+        'result': agendamentos,
+    }
     return render(request, 'consultarAgendamentoEsp.html', agendamentosEsp)
 
 ###

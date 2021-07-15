@@ -37,6 +37,6 @@ urlpatterns = [
     path('edit/<slug:cpf>/', edit),
     path('update/<slug:cpf>/', update),
     path('addProcedimento/<int:age_id>', addProcedimento),
-    path('consultarAgendamentoEsp/', viewAgendamentoEsp),
+    path('consultarAgendamentoEsp/<int:sau_id>', viewAgendamentoEsp),
     path('consultaProntuarios/', viewProntuarios),
 ]

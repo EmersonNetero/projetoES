@@ -19,7 +19,7 @@
                 <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.tipo_agendamento}}</th>
                 <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.fk_tipo_procedimento}} </th>
                 <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.fk_paciente}} </th>
-                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.data_agendamento }} </th>
+                <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.data_agendamento | date:"d-m-Y"}} </th>
                 <th><a href="/addProcedimento/{{a.pk_agendamento}}"> {{a.fk_agente_saude}} </a></th>
                 <th><a href="/addProcedimento/{{a.pk_agendamento}}"> R$ {{a.valor}} </th>
             </tr>
