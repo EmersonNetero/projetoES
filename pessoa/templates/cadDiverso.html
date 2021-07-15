@@ -15,15 +15,64 @@
             <th>Dados</th>
         </tr>
         </thead>
+    </table>
+    <table class="procedimento">
+
+        {% if head == 1 %}
+        {% for field in formG %}
         <tr>
             <th>
-                {% if head == 1 %}
-                {{formG.as_p}}
-                {% elif head == 2 %}
-                {{formTp.as_p}}
-                {% elif head == 3 %}
-                {{formEn.as_p}}
-                {% endif %}
+                {{ field.label_tag }}
+            </th>
+            <th>
+                {{ field }}
+            </th>
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+
+    <table class="procedimento">
+        {% if head == 2 %}
+        {% for field in formTp %}
+        <tr>
+            <th>
+                {{ field.label_tag }}
+            </th>
+            <th>
+                {{ field }}
+            </th>
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+
+        <table class="procedimento">
+        {% if head == 3 %}
+        {% for field in formEn %}
+        <tr>
+            <th>
+                {{ field.label_tag }}
+            </th>
+            <th>
+                {{ field }}
+            </th>
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <tr>
+        <tr>
+            <th>
+                <br>
                 <input class="btn btn-primary" type="submit" value="Cadastrar">
                 <input class="btn btn-primary" type="reset" value="Limpar Formulário">
                 <a href="/admsistema" class="btn btn-primary">Voltar</a>
