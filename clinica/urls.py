@@ -4,7 +4,7 @@ from pessoa.views import home, login_user, \
     cadastrarCargo, admSistema, cadastrarTipoProcedimento, cadastrarPaciente, cadastraAgntSecretaria, cadastraAgntSaude, \
     cadastrarEndereco, cadAdmSistema, agendarConsultas, agtSaude, agtSecretaria, logout_user, pagar, telaPagamento, verAgendamento, \
     viewAgendamento, realizarProcedimento, viewCronograma, viewCronogramaAgtSaude, viewUsuarios, edit, update,\
-    addProcedimento, viewAgendamentoEsp, agendarCirurgias, agendarExames
+    addProcedimento, viewAgendamentoEsp, agendarCirurgias, agendarExames, viewProntuarios
 
 
 
@@ -38,4 +38,5 @@ urlpatterns = [
     path('update/<slug:cpf>/', update),
     path('addProcedimento/<int:age_id>', addProcedimento),
     path('consultarAgendamentoEsp/', viewAgendamentoEsp),
+    path('consultaProntuarios/', viewProntuarios),
 ]
