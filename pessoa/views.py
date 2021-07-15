@@ -40,11 +40,11 @@ def login_user(request):
         if usuario is not None:
             login(request, usuario)
             use = User.objects.get(username=email)
-            sauId = get_object_or_404(AgenteSaude, email=email)
-            print(sauId)
-            request.session['username'] = use.first_name
-            request.session['sauId'] = sauId.pk_agente_saude
-            print(sauId.pk_agente_saude)
+            # sauId = get_object_or_404(AgenteSaude, email=email)
+            # print(sauId)
+            # request.session['username'] = use.first_name
+            # request.session['sauId'] = sauId.pk_agente_saude
+            # print(sauId.pk_agente_saude)
             return redirect_to_menu(request.POST['usuario'])
         else:
             messages.error(request, "email ou senha errado!!")

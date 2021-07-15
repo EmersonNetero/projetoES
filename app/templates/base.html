@@ -44,7 +44,27 @@
             {% endblock %}
 
             <div class="line"></div>
+            {% if db.tipo_usuario == 'Adm do Sistema' %}
+            
+            <a href="/agendarConsultas"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Agendar Consultas</a>
+            <a href="/agendarExames"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Agendar Exames</a>
+            <a href="/agendarCirurgias"> <img src="{% static '/icones/surgery.svg' %}" alt=""  width="20" height="20"> Agendar Cirurgias</a>
+            <a href="/consultarAgendamento"> <img src="{% static '/icones/calendar.svg' %}" alt=""  width="20" height="20"> Agendamentos</a>
 
+            {% elif db.tipo_usuario == 'Agente de Secretaria' %}
+            
+            <a href="/agendarConsultas"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Agendar Consultas</a>
+            <a href="/agendarExames"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Agendar Exames</a>
+            <a href="/agendarCirurgias"> <img src="{% static '/icones/surgery.svg' %}" alt=""  width="20" height="20"> Agendar Cirurgias</a>
+            <a href="/consultarAgendamento"> <img src="{% static '/icones/calendar.svg' %}" alt=""  width="20" height="20"> Agendamentos</a>
+            <a href="/telapagamento"> <img src="{% static '/icones/pagamento (1).svg' %}" alt=""  width="20" height="20"> Efetuar Pagamento</a>
+            <a href="/cronograma"> <img src="{% static '/icones/rede.svg' %}" alt=""  width="20" height="20"> Pacientes</a>
+
+            {% elif db.tipo_usuario == 'Agente de Saúde' %}
+            
+            <a href="/cronogramaAgtSaude/{{user.first_name}}"> <img src="{% static '/icones/rede.svg' %}" alt=""  width="20" height="20"> Exibir Cronograma </a>
+            <a href="/consultaProntuarios"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Visualizar Prontuário </a>
+            {% else %}
             <a href="/"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home</a>
             <a href="#"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Consultas</a>
             <a href="#"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Exames</a>
@@ -53,7 +73,9 @@
             <a href="#"> <img src="{% static '/icones/calendar.svg' %}" alt=""  width="20" height="20"> Agendamentos</a>
             <a href="#"> <img src="{% static '/icones/rede.svg' %}" alt=""  width="20" height="20"> Cronograma</a>
             <a href="#"> <img src="{% static '/icones/user.svg' %}" alt=""  width="20" height="20"> Pacientes</a>
-        </ul>
+            {% endif %}
+
+          </ul>
 
      {% endblock %}
 
