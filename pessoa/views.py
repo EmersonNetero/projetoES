@@ -450,7 +450,7 @@ def addProcedimento(request, age_id):
 
 ###
 def viewAgendamentoEsp(request, sau_id):
-    agendamentosEsp : {}
+    agendamentosEsp = {}
     agendamentos = Agendamento.objects.filter(confirmado=False, fk_agente_saude=sau_id) #AQUI SERÁ True
     agendamentosEsp = {
         'result': agendamentos,
