@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import Agendamento, AgenteSecretaria, AdministradorSistema, Paciente, Pagamento, AgenteSaude, Profissao, Endereco, Procedimento, TipoProcedimento
 from .forms import LoginForm, ProfissaoForm, EnderecoForm, AgenteSecretariaForm, AgenteSaudeForm, AdministradorSistemaForm, CargoForm, \
-    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm, Procedimento2Form
+    TipoProcedimentoForm, AgendamentoForm, PagamentoForm, PacienteForm, ProcedimentoForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
@@ -40,11 +40,6 @@ def login_user(request):
         if usuario is not None:
             login(request, usuario)
             use = User.objects.get(username=email)
-            # sauId = get_object_or_404(AgenteSaude, email=email)
-            # print(sauId)
-            # request.session['username'] = use.first_name
-            # request.session['sauId'] = sauId.pk_agente_saude
-            # print(sauId.pk_agente_saude)
             return redirect_to_menu(request.POST['usuario'])
         else:
             messages.error(request, "email ou senha errado!!")
@@ -71,8 +66,9 @@ def admSistema(request):
 
 def agtSaude(request):
     aux = AgenteSaude.objects.filter(email=request.user)
+    aSaude = get_object_or_404(AgenteSaude, email=request.user)
     if aux:
-        return render(request, "menuAgtSaude.html", {'db': aux[0]})
+        return render(request, "menuAgtSaude.html", {'db': aux[0], 'ageId': aSaude.pk_agente_saude})
     return render(request, "menuAgtSaude.html")
 
 ###
@@ -295,10 +291,11 @@ def pagar(request, pk):
     return render(request, 'pagar.html', pagamentos)
 
 ###
-def realizarProcedimento(request):
+def realizarProcedimento(request, age_id):
     context = {}
     user = Profissao.objects.filter(email=request.user)
     f = ProcedimentoForm
+    objAgendamento, objPaciente = viewAgendamentoSel(age_id)
     if request.method == "POST":
         formProcedimento = ProcedimentoForm(request.POST)
         if formProcedimento.is_valid():
@@ -309,6 +306,12 @@ def realizarProcedimento(request):
     else:
         formProcedimento = ProcedimentoForm()
     context['formProcedimento'] = formProcedimento
+    # context = {
+    #     'formProcedimento': formProcedimento,
+    #     'ageId': objAgendamento,
+    #     'nPaciente': objPaciente,
+    #     'aSaude': request.session.get('username'),
+    # }
     return render(request, "procedimento.html", {'formProcedimento': formProcedimento, 'db':user[0]})
 
 
@@ -412,47 +415,11 @@ def update(request, cpf):
             form.save()
             formE.save()
             return redirect('admSistema')
-
-###
-def addProcedimento(request, age_id):
-    context = {}
-    procedimento = Procedimento()
-    objAgendamento, objPaciente = viewAgendamentoSel(age_id)
-    setData = {
-        'ageId': objAgendamento,
-        'nPaciente': objPaciente,
-        'aSaude': request.session.get('username')
-    }
-    if request.method == "POST":
-        formProcedimento = Procedimento2Form(request.POST)
-        if formProcedimento.is_valid():
-            procedimento.fk_agendamento = formProcedimento.cleaned_data.get('agendamento')
-            procedimento.fk_paciente = formProcedimento.cleaned_data.get('paciente')
-            procedimento.comorbidade = formProcedimento.cleaned_data.get('comorbidade')
-            procedimento.gravidade = formProcedimento.cleaned_data.get('gravidade')
-            procedimento.medicamento = formProcedimento.cleaned_data.get('medicamento')
-            procedimento.descricao = formProcedimento.cleaned_data.get('descricao')
-            procedimento.observacao = formProcedimento.cleaned_data.get('observacao')
-            procedimento.fk_agente_saude = formProcedimento.cleaned_data.get('agenteSaude')
-            procedimento.data_procedimento = formProcedimento.cleaned_data.get('data_procedimento')
-            procedimento.realizado = True
-            procedimento.save()
-            messages.info(request, "Procedimento Realizado com Sucesso!")
-            return HttpResponseRedirect("/")
-    else:
-
-        formProcedimento = Procedimento2Form(setData=setData)
-    context = {
-        'formProcedimento': formProcedimento,
-        'procedimento': procedimento,
-    }
-    return render(request, "procedimento2.html", context)
-
 ###
 def viewAgendamentoEsp(request, sau_id):
-    agendamentosEsp = {}
-    agendamentos = Agendamento.objects.filter(confirmado=False, fk_agente_saude=sau_id) #AQUI SERÁ True
-    agendamentosEsp = {
+    agendamentosEsp : {} #Tipo não definido, python não é tipado
+    agendamentos = Agendamento.objects.filter(confirmado=True, fk_agente_saude=sau_id) #AQUI SERÁ True
+    agendamentosEsp = { #Definido dinâmicamente
         'result': agendamentos,
     }
     return render(request, 'consultarAgendamentoEsp.html', agendamentosEsp)

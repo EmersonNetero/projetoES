@@ -167,10 +167,10 @@ class Agendamento(models.Model):
         verbose_name_plural = 'Agendamentos'
         db_table = 'agendamento'
 
-    #def __str__(self):
-        #return str(self.pk_agendamento)
     def __str__(self):
-        return f'{self.fk_paciente}'
+        return str(self.pk_agendamento)
+   #def __str__(self):
+        #return f'{self.fk_paciente}'
 
 
 ###
@@ -222,5 +222,5 @@ class Procedimento(models.Model):
 
     #def __int__(self):
         #return  str(self.pk_agendamento)
-    def __str__(self):
-        return  self.fk_paciente
+    #def __str__(self):
+        #return  self.fk_paciente
