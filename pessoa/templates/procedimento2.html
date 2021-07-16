@@ -13,6 +13,7 @@
     </table>
 
     <table class="procedimento">
+             {{ formP.non_field_errors }}
         {% for field in formProcedimento %}
         <tr>
             <th>
@@ -20,6 +21,8 @@
             </th>
             <th>
                 {{ field }}
+                 {{ field.errors }}
+                {{ field.auto_id }}
             </th>
             {% if field.help_text %}
             <p class="help">{{ field.help_text|safe }}</p>
@@ -44,5 +47,6 @@
 
 {% endfor %}
 {% endif %}
+
 
 {% endblock %}
