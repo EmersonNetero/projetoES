@@ -60,7 +60,7 @@ class AgendamentoForm(ModelForm):
     data_agendamento = forms.DateField(localize=False,
                                       widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
                                       initial=datetime.datetime.now())
-    tipo_agendamento = forms.CharField(widget=forms.TextInput(attrs={'disabled':'True'}))
+    tipo_agendamento = forms.CharField(widget=forms.TextInput())
     observacao = forms.CharField(max_length=300, required=False, widget=forms.Textarea(attrs={'cols': 50, 'rows': 4}), label='Observação')
     pago = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'size': 20}))
     confirmado = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'size': 20}))

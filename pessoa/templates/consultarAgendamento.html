@@ -28,7 +28,11 @@
                 <th>{{dbs.fk_paciente}}</th>
                 <th>{{dbs.fk_agente_saude}}</th>
                 <th>R$ {{dbs.valor}}</th>
-                <th>{{dbs.pago}}</th>
+                {% if dbs.pago%}
+                <th>Pago</th>
+                {% else %}
+                <th>Pagamento Pendente</th>
+                {%endif%}
                 <th>{{dbs.data_agendamento}}</th>
                 <th>
                     <a href="/verAgendamento/{{dbs.pk_agendamento}}" class="btn primary">Ver</a>

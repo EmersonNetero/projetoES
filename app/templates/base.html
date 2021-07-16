@@ -44,6 +44,7 @@
             {% endblock %}
 
             <div class="line"></div>
+            {% if db.tipo_usuario == 'Adm do Sistema' or dbs.tipo_usuario == 'Adm do Sistema' or db2.tipo_usuario == 'Adm do Sistema'%}
             <a href="/admSistema"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home Adm do Sitema</a>
             <a href="/cadAdmSistema"> <img src="{% static '/icones/user.svg' %}" alt=""  width="20" height="20"> Cadastrar Adm</a>
             <a href="/cadastrarAgntSecretaria"> <img src="{% static '/icones/user.svg' %}" alt=""  width="20" height="20"> Cadastrar Agt Secretaria</a>
@@ -53,6 +54,7 @@
             <a href="/agendarCirurgias"> <img src="{% static '/icones/surgery.svg' %}" alt=""  width="20" height="20"> Agendar Cirurgias</a>
             <a href="/consultarAgendamento"> <img src="{% static '/icones/calendar.svg' %}" alt=""  width="20" height="20"> Agendamentos</a>
             <br>
+            
             <a href="/agtSecretaria"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home Agente de Secretaria</a>
             <a href="/agendarConsultas"> <img src="{% static '/icones/consulta.svg' %}" alt=""  width="20" height="20"> Agendar Consultas</a>
             <a href="/agendarExames"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Agendar Exames</a>
@@ -65,7 +67,7 @@
             <a href="/agtSaude"> <img src="{% static '/icones/botao-home.svg' %}" alt=""  width="20" height="20"> Home Agente de Saúde</a>
             <a href="/cronogramaAgtSaude/{{user.first_name}}"> <img src="{% static '/icones/rede.svg' %}" alt=""  width="20" height="20"> Exibir Cronograma </a>
             <a href="/consultaProntuarios"> <img src="{% static '/icones/exam.svg' %}" alt=""  width="20" height="20"> Visualizar Prontuário </a>
-            
+            {% endif %}
             
           </ul>
 
