@@ -6,6 +6,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th scope="col">Tipo de Procedimento</th>
             <th scope="col">Procedimento</th>
             <th scope="col">Paciente</th>
             <th scope="col">Data</th>
@@ -13,14 +14,14 @@
     </thead>
     <tbody>
         {% for dbs in db2 %}
-        
-            <tr>
-                
-                <th><a href="/addProcedimento/{{dbs.pk_agendamento}}">{{dbs.fk_tipo_procedimento}}</a></th>
-                <th>{{dbs.fk_paciente}}</th>
-                <th>{{dbs.data_agendamento}}</th>
+        {% if not dbs.confirmado %}
+            <tr>  
+                    <th><a href="/realProcedimento/{{dbs.pk_agendamento}}"> {{dbs.tipo_agendamento}}</th>
+                    <th><a href="/realProcedimento/{{dbs.pk_agendamento}}"> {{dbs.fk_tipo_procedimento}} </th>
+                    <th><a href="/realProcedimento/{{dbs.pk_agendamento}}"> {{dbs.fk_paciente}} </th>
+                    <th><a href="/realProcedimento/{{dbs.pk_agendamento}}"> {{dbs.data_agendamento | date:"d-m-Y"}} </th>
             </tr>
-        
+        {% endif %}
         {% endfor %}
     </tbody>
 </table>
